@@ -1,0 +1,24 @@
+td, th {
+	padding: 10px;
+	text-align: center;
+}
+
+.dispNone {
+	visibility: hidden;
+}
+
+html, body {
+	height: 100%;
+}
+
+.sectionHeight {
+	height: calc(100% - 101px);
+}
+
+.inputError{
+	background-color:#FFCC99
+}
+
+.selection{
+	padding-left: 2rem;
+}
