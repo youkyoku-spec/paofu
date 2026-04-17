@@ -1,13 +1,12 @@
-package com.gips.nextapp;
+package com.gips;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NextappApplication {
+public class AppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NextappApplication.class, args);
+		SpringApplication.run(AppApplication.class, args);
 	}
-
 }
