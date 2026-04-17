@@ -5,7 +5,7 @@
 
 <mapper namespace="com.gips.taskapp.mapper.SampleMapper">
 
-    <select id="getSampleList" resultType="com.gips.taskapp.dao.Sample">
+    <select id="getSampleList" resultType="Sample">
         SELECT
          login_id,
          user_name,
