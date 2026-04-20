@@ -13,7 +13,7 @@ import com.gips.nextapp.SessionBean;
 /**
  * コントローラ(ログイン)
  *
- * ログインのビューとサービスを制御する
+ * ログインのビューとサービスを制御するyamamoto
  *
  */
 @Controller
