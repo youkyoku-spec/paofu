@@ -2,7 +2,7 @@ package com.gips.taskapp.service;
 
 import org.springframework.stereotype.Service;
 
-import com.gips.taskapp.form.TaskEditForm;
+import com.gips.taskapp.dto.TaskEditForm;
 import com.gips.taskapp.service.impl.TaskEditServiceImpl;
 
 @Service
