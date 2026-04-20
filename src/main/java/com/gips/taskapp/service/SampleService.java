@@ -2,10 +2,10 @@ package com.gips.taskapp.service;
 
 import java.util.List;
 
-import com.gips.taskapp.dao.Sample;
+import com.gips.taskapp.dto.SampleDto;
 
 public interface SampleService {
 
-	List<Sample> getSampleList();
+	List<SampleDto> getSampleList();
 
 }

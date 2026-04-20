@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gips.taskapp.dao.Sample;
+import com.gips.taskapp.dto.SampleDto;
 
 @Mapper
 public interface SampleMapper {
 
-	List<Sample> getSampleList();
+	List<SampleDto> getSampleList();
 }
