@@ -1,6 +1,6 @@
 package com.gips.taskapp.service.impl;
 
-import com.gips.taskapp.form.TaskEditForm;
+import com.gips.taskapp.dto.TaskEditForm;
 
 public interface TaskEditServiceImpl {
 

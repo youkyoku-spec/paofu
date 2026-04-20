@@ -1,4 +1,4 @@
-package com.gips.taskapp.form;
+package com.gips.taskapp.dto;
 
 public class TaskEditForm {
 
