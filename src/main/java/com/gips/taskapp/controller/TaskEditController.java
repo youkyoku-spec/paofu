@@ -14,7 +14,7 @@ import com.gips.taskapp.dto.TaskEditForm;
 import com.gips.taskapp.service.TaskEditService;
 
 /**
- * タスク編集画面コントローラー
+ * タスク編集コントローラー
  */
 @Controller
 public class TaskEditController {
