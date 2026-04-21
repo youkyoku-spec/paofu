@@ -3,6 +3,7 @@ package com.gips.taskapp.dto;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,7 +17,7 @@ import lombok.Data;
 public class TaskEditForm {
 
 	// タスクID
-	private String taskId;
+	private Integer taskId;
 
 	// 作業者
 	private String assigneeId;
@@ -44,6 +45,7 @@ public class TaskEditForm {
 
 	//進捗率
 	@NotNull(message = "進捗率を入力してください")
+	@Min(value = 0, message = "進捗率が無効な値です")
 	@Max(value = 100, message = "進捗率が無効な値です")
 	private Integer progress;
 
