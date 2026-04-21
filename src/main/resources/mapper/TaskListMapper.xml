@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gips.taskapp.mapper.TaskListMapper">
+
+    <select id="getMemberTask" resultType="TaskListDto">
+        SELECT
+         u.user_name AS userName,
+         t.task_id AS taskId,
+         t.assignee_id AS assigneeId,
+         t.task_name AS taskName,
+         t.task_detail AS taskDetail,
+         t.start_date AS startDate,
+         t.due_date AS dueDate,
+         t.completed_date AS completedDate,
+         t.progress,
+         t.memo 
+        FROM users u
+        INNER JOIN tasks t ON u.login_id = t.assignee_id
+        WHERE t.assignee_id = #{loginId}
+        ORDER BY t.due_date ASC, t.progress DESC
+    </select>
+    
+    <select id="getLeaderTask" resultType="TaskListDto">
+        SELECT
+         u.user_name AS userName,
+         t.task_id AS taskId,
+         t.assignee_id AS assigneeId,
+         t.task_name AS taskName,
+         t.task_detail AS taskDetail,
+         t.start_date AS startDate,
+         t.due_date AS dueDate,
+         t.completed_date AS completedDate,
+         t.progress,
+         t.memo 
+        FROM users u
+        INNER JOIN tasks t ON u.login_id = t.assignee_id
+        ORDER BY t.due_date ASC, t.progress DESC
+    </select>
+    
+    <delete id="deleteTask">
+        DELETE FROM tasks WHERE task_id = #{taskId}
+    </delete>
+
+</mapper>

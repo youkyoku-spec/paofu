@@ -2,6 +2,8 @@ package com.gips.taskapp.dto;
 
 import java.time.LocalDate;
 
+import com.gips.taskapp.common.Status;
+
 import lombok.Data;
 
 /**
@@ -41,4 +43,6 @@ public class TaskListDto {
 	// メモ
 	private String memo;
 
+	// 状態
+	private Status status;
 }
