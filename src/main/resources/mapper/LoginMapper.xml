@@ -6,19 +6,20 @@
 <mapper namespace="com.gips.taskapp.mapper.LoginMapper">
 
 	<select id="findUser" resultType="com.gips.taskapp.dto.UserDto">
-		SELECT r.role_name AS roleName,
+		SELECT
 		u.login_id AS loginId,
 		u.password AS password,
 		u.user_name AS userName,
-		u.role_id AS roleId
+		u.role_id AS roleId,
+		r.role_name AS roleName
 		FROM users u
 		INNER JOIN roles r
 		ON u.role_id =
 		r.role_id
 		WHERE
-		login_id = #{loginId}
+		u.login_id = #{loginId}
 		AND
-		password =
+		u.password =
 		#{password}
 	</select>
 </mapper>
