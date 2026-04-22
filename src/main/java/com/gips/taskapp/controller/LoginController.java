@@ -27,7 +27,7 @@ public class LoginController {
 
 		model.addAttribute("loginForm", loginForm);
 
-		return "login";
+		return "task/login";
 
 	}
 
@@ -41,7 +41,7 @@ public class LoginController {
 		if (result.getMessage() != null) {
 
 			model.addAttribute("message", result.getMessage());
-			return "redirect:/login";
+			return "task/login";
 
 		}
 
