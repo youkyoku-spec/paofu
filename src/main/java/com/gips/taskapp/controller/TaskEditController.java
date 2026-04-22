@@ -5,11 +5,14 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.gips.taskapp.common.Constants;
+import com.gips.taskapp.dto.LeaderGroup;
+import com.gips.taskapp.dto.MemberGroup;
 import com.gips.taskapp.dto.TaskEditForm;
 import com.gips.taskapp.service.impl.TaskEditServiceImpl;
 
@@ -20,9 +23,11 @@ import com.gips.taskapp.service.impl.TaskEditServiceImpl;
 public class TaskEditController {
 
 	private final TaskEditServiceImpl service;
+	private final SmartValidator validator;
 
-	TaskEditController(TaskEditServiceImpl service) {
+	TaskEditController(TaskEditServiceImpl service, SmartValidator validator) {
 		this.service = service;
+		this.validator = validator;
 	}
 
 	/**
@@ -37,6 +42,9 @@ public class TaskEditController {
 
 		// セッションのタスクIDを取り除く
 		session.removeAttribute("taskId");
+
+		// 権限名をモデルに追加する
+		model.addAttribute("roleName", session.getAttribute("roleName"));
 		// フォームをモデルに追加する
 		model.addAttribute("taskEditForm", new TaskEditForm());
 		// ユーザー一覧をモデルに追加する
@@ -56,8 +64,6 @@ public class TaskEditController {
 	@GetMapping("/taskEdit")
 	String showEditView(Model model, HttpSession session) {
 
-		// セッションから権限名を取得する
-		String roleName = (String) session.getAttribute("roleName");
 		// セッションからタスクIDを取得する
 		Integer taskId = (Integer) session.getAttribute("taskId");
 
@@ -71,7 +77,7 @@ public class TaskEditController {
 		TaskEditForm form = service.getTask(taskId);
 
 		// 権限名をモデルに追加する
-		model.addAttribute("roleName", roleName);
+		model.addAttribute("roleName", session.getAttribute("roleName"));
 		// タスク情報をモデルに追加する
 		model.addAttribute("taskEditForm", form);
 		// ユーザー一覧をモデルに追加する
@@ -92,13 +98,20 @@ public class TaskEditController {
 	 */
 	@PostMapping("/submit")
 	String submitTask(
-			@ModelAttribute @Validated TaskEditForm form,
+			@ModelAttribute TaskEditForm form,
 			BindingResult result,
 			Model model,
 			HttpSession session) {
 
 		// セッションから権限名を取得する
 		String roleName = (String) session.getAttribute("roleName");
+
+		// 権限名によってバリデーションを切り替える
+		if (roleName.equals(Constants.LEADER)) {
+			validator.validate(form, result, LeaderGroup.class);
+		} else {
+			validator.validate(form, result, MemberGroup.class);
+		}
 
 		// バリデーションエラーのチェック
 		if (result.hasErrors()) {

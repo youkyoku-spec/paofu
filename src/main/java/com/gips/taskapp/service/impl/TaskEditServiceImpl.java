@@ -91,7 +91,7 @@ public class TaskEditServiceImpl implements TaskEditService {
 		}
 
 		// リーダー時のタスク更新処理
-		if (roleId == Constants.LEADER) {
+		if (roleId.equals(Constants.LEADER)) {
 			mapper.updateTaskAsLeader(dto);
 
 			return;
