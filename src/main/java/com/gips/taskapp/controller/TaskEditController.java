@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gips.taskapp.dto.TaskEditForm;
-import com.gips.taskapp.service.TaskEditService;
+import com.gips.taskapp.service.impl.TaskEditServiceImpl;
 
 /**
  * タスク編集コントローラー
@@ -19,9 +19,9 @@ import com.gips.taskapp.service.TaskEditService;
 @Controller
 public class TaskEditController {
 
-	private final TaskEditService service;
+	private final TaskEditServiceImpl service;
 
-	TaskEditController(TaskEditService service) {
+	TaskEditController(TaskEditServiceImpl service) {
 		this.service = service;
 	}
 
@@ -40,10 +40,10 @@ public class TaskEditController {
 		// フォームをモデルに追加する
 		model.addAttribute("taskEditForm", new TaskEditForm());
 		// ユーザー一覧をモデルに追加する
-		model.addAttribute("userList", service.getAllUsers());
+		model.addAttribute("userList", service.getUserList());
 
 		// タスク編集画面のビューを返却する
-		return "taskEdit";
+		return "task/taskEdit";
 	}
 
 	/**
@@ -75,10 +75,10 @@ public class TaskEditController {
 		// タスクの情報をモデルに追加する
 		model.addAttribute("taskEditForm", form);
 		// ユーザー一覧をモデルに追加する
-		model.addAttribute("userList", service.getAllUsers());
+		model.addAttribute("userList", service.getUserList());
 
 		// タスク編集画面のビューを返却する
-		return "taskEdit";
+		return "task/taskEdit";
 	}
 
 	/**
@@ -107,10 +107,10 @@ public class TaskEditController {
 			// フォームをモデルに追加する
 			model.addAttribute("taskEditForm", form);
 			// ユーザー一覧をモデルに追加する
-			model.addAttribute("userList", service.getAllUsers());
+			model.addAttribute("userList", service.getUserList());
 
 			// タスク編集画面のビューを返却する
-			return "taskEdit";
+			return "task/taskEdit";
 		}
 
 		// 開始日<=完了予定日の整合性チェック
@@ -126,10 +126,10 @@ public class TaskEditController {
 			// フォームをモデルに追加する
 			model.addAttribute("taskEditForm", form);
 			// ユーザー一覧をモデルに追加する
-			model.addAttribute("userList", service.getAllUsers());
+			model.addAttribute("userList", service.getUserList());
 
 			// タスク編集画面のビューを返却する
-			return "taskEdit";
+			return "task/taskEdit";
 		}
 
 		// 開始日<=完了日の整合性チェック
@@ -145,10 +145,10 @@ public class TaskEditController {
 			// フォームをモデルに追加する
 			model.addAttribute("taskEditForm", form);
 			// ユーザー一覧をモデルに追加する
-			model.addAttribute("userList", service.getAllUsers());
+			model.addAttribute("userList", service.getUserList());
 
 			// タスク編集画面のビューを返却する
-			return "taskEdit";
+			return "task/taskEdit";
 		}
 
 		// セッションからタスクIDを取得する
