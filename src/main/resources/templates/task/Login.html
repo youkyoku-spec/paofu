@@ -11,7 +11,7 @@
 
 	<div th:if="${message}" th:text="${message}" style="color:red;"></div>
 
-	<form th:action="@{/}" th:object="${loginForm}" method="post">
+	<form th:action="@{/login}" th:object="${loginForm}" method="post">
 
 		<div>
 			<label for="loginId">ログインID:</label>

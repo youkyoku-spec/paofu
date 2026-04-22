@@ -32,7 +32,7 @@ public class LoginController {
 	}
 
 	// ログイン認証サービスを呼び出し、IDとパスワードを渡し、結果を受け取る
-	@PostMapping("/")
+	@PostMapping("/login")
 	public String loginForm(Model model, @ModelAttribute LoginDto loginForm, HttpSession session) {
 
 		UserDto result = service.loginService(loginForm.getLoginId(), loginForm.getPassword());
@@ -41,6 +41,7 @@ public class LoginController {
 		if (result.getMessage() != null) {
 
 			model.addAttribute("message", result.getMessage());
+			model.addAttribute("loginForm", loginForm);
 			return "task/login";
 
 		}

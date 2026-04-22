@@ -32,8 +32,10 @@ public class LoginServiceImpl implements LoginService {
 		// 取得したインスタンスがnullだったならメッセージをUserContextにset
 		if (userDto == null) {
 
-			userDto.setMessage("入力されたログインIDまたはパスワードが間違っています。");
-			return userDto;
+			UserDto errorDto = new UserDto();
+
+			errorDto.setMessage("入力されたログインIDまたはパスワードが間違っています。");
+			return errorDto;
 
 		}
 		// UserContextを返す
