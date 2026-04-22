@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.gips.taskapp.dto.TaskEditForm;
 import com.gips.taskapp.service.TaskEditService;
 
+/**
+ * タスク編集コントローラー
+ */
 @Controller
 public class TaskEditController {
 
@@ -22,6 +25,13 @@ public class TaskEditController {
 		this.service = service;
 	}
 
+	/**
+	 * タスク登録時の初期表示
+	 * 
+	 * @param model モデル
+	 * @param session セッション
+	 * @return ビューの名前
+	 */
 	@GetMapping("/taskRegister")
 	String showRegisterView(Model model, HttpSession session) {
 
@@ -34,6 +44,13 @@ public class TaskEditController {
 		return "taskEdit";
 	}
 
+	/**
+	 * タスク編集時の初期表示
+	 * 
+	 * @param model モデル
+	 * @param session セッション
+	 * @return ビューの名前
+	 */
 	@GetMapping("/taskEdit")
 	String showEditView(Model model, HttpSession session) {
 
@@ -60,6 +77,15 @@ public class TaskEditController {
 		return "taskEdit";
 	}
 
+	/**
+	 * タスクの登録、編集を行う
+	 * 
+	 * @param form フォーム
+	 * @param result バリデーション結果
+	 * @param model モデル
+	 * @param session セッション
+	 * @return ビューの名前
+	 */
 	@PostMapping("/submit")
 	String submitTask(
 			@ModelAttribute @Validated TaskEditForm form,
@@ -70,8 +96,42 @@ public class TaskEditController {
 		// セッションから権限名を取得する
 		String roleName = (String) session.getAttribute("roleName");
 
-		// バリデーションエラーがあった場合
+		// バリデーションエラーのチェック
 		if (result.hasErrors()) {
+			// 権限名をモデルに追加する
+			model.addAttribute("roleName", roleName);
+			// フォームをモデルに追加する
+			model.addAttribute("taskEditForm", form);
+
+			// タスク編集画面のビューを返却する
+			return "taskEdit";
+		}
+
+		// 開始日<=完了予定日の整合性チェック
+		if (form.getStartDate() != null && form.getDueDate() != null
+				&& form.getStartDate().isAfter(form.getDueDate())) {
+
+			// 完了予定日にエラーメッセージを紐づける
+			result.rejectValue("dueDate", "",
+					"完了予定日は開始日以降の日付を入力してください");
+
+			// 権限名をモデルに追加する
+			model.addAttribute("roleName", roleName);
+			// フォームをモデルに追加する
+			model.addAttribute("taskEditForm", form);
+
+			// タスク編集画面のビューを返却する
+			return "taskEdit";
+		}
+
+		// 開始日<=完了日の整合性チェック
+		if (form.getStartDate() != null && form.getCompletedDate() != null
+				&& form.getStartDate().isAfter(form.getCompletedDate())) {
+
+			// 完了日にエラーメッセージを紐づける
+			result.rejectValue("completedDate", "",
+					"完了日は開始日以降の日付を入力してください");
+
 			// 権限名をモデルに追加する
 			model.addAttribute("roleName", roleName);
 			// フォームをモデルに追加する
