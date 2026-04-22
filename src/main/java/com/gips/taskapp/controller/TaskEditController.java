@@ -39,6 +39,8 @@ public class TaskEditController {
 		session.removeAttribute("taskId");
 		// フォームをモデルに追加する
 		model.addAttribute("taskEditForm", new TaskEditForm());
+		// ユーザー一覧をモデルに追加する
+		model.addAttribute("userList", service.getAllUsers());
 
 		// タスク編集画面のビューを返却する
 		return "taskEdit";
@@ -72,6 +74,8 @@ public class TaskEditController {
 		model.addAttribute("roleName", roleName);
 		// タスクの情報をモデルに追加する
 		model.addAttribute("taskEditForm", form);
+		// ユーザー一覧をモデルに追加する
+		model.addAttribute("userList", service.getAllUsers());
 
 		// タスク編集画面のビューを返却する
 		return "taskEdit";
@@ -102,6 +106,8 @@ public class TaskEditController {
 			model.addAttribute("roleName", roleName);
 			// フォームをモデルに追加する
 			model.addAttribute("taskEditForm", form);
+			// ユーザー一覧をモデルに追加する
+			model.addAttribute("userList", service.getAllUsers());
 
 			// タスク編集画面のビューを返却する
 			return "taskEdit";
@@ -119,6 +125,8 @@ public class TaskEditController {
 			model.addAttribute("roleName", roleName);
 			// フォームをモデルに追加する
 			model.addAttribute("taskEditForm", form);
+			// ユーザー一覧をモデルに追加する
+			model.addAttribute("userList", service.getAllUsers());
 
 			// タスク編集画面のビューを返却する
 			return "taskEdit";
@@ -136,6 +144,8 @@ public class TaskEditController {
 			model.addAttribute("roleName", roleName);
 			// フォームをモデルに追加する
 			model.addAttribute("taskEditForm", form);
+			// ユーザー一覧をモデルに追加する
+			model.addAttribute("userList", service.getAllUsers());
 
 			// タスク編集画面のビューを返却する
 			return "taskEdit";

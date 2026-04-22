@@ -1,10 +1,13 @@
 package com.gips.taskapp.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.gips.taskapp.common.Constants;
 import com.gips.taskapp.dto.TaskEditDto;
 import com.gips.taskapp.dto.TaskEditForm;
+import com.gips.taskapp.dto.UserDto;
 import com.gips.taskapp.mapper.TaskEditMapper;
 import com.gips.taskapp.service.impl.TaskEditServiceImpl;
 
@@ -37,6 +40,11 @@ public class TaskEditService implements TaskEditServiceImpl {
 
 		// フォームを返却する
 		return form;
+	}
+
+	@Override
+	public List<UserDto> getAllUsers() {
+		return mapper.findAllUsers();
 	}
 
 	@Override

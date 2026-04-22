@@ -20,6 +20,7 @@ public class TaskEditForm {
 	private Integer taskId;
 
 	// 作業者
+	@NotBlank(message = "作業者を選択してください")
 	private String assigneeId;
 
 	// タスク名
