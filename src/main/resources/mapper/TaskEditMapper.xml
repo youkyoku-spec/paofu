@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gips.taskapp.mapper.TaskEditMapper">
+
+	<select id="findTaskById" resultType="com.gips.taskapp.dto.TaskEditDto">
+		SELECT
+			t.task_id AS taskId,
+			t.assignee_id AS assignee_id,
+			t.task_name AS taskName,
+			t.task_detail AS taskDetail,
+			t.start_date AS startDate,
+			t.due_date AS dueDate,
+			t.completed_date AS completedDate,
+			t.progress AS progress,
+			t.memo AS memo
+		FROM tasks t
+		WHERE t.task_id = #{taskId}
+	</select>
+
+	<select id="findAllUsers" resultType="com.gips.taskapp.dto.UserDto">
+		SELECT
+			u.login_id AS loginId,
+			u.user_name AS userName
+		FROM users u
+	</select>
+	
+	<insert id="insertTask" parameterType="com.gips.taskapp.dto.TaskEditDto">
+		INSERT INTO tasks (
+			assignee_id,
+			task_name,
+			task_detail,
+			start_date,
+			due_date,
+			completed_date,
+			progress,
+			memo
+		) VALUES (
+			#{assigneeId},
+			#{taskName},
+			#{taskDetail},
+			#{startDate},
+			#{dueDate},
+			#{completedDate},
+			#{progress},
+			#{memo}
+		)
+	</insert>
+	
+	<update id="updateTaskAsLeader" parameterType="com.gips.taskapp.dto.TaskEditDto">
+		UPDATE tasks
+		SET
+			assignee_id = #{assigneeId},
+			task_name = #{taskName},
+			task_detail = #{taskDetail},
+			start_date = #{startDate},
+			due_date = #{dueDate},
+			completed_date = #{completedDate},
+			progress = #{progress},
+			memo = #{memo}
+		WHERE task_id = #{taskId}
+	</update>
+	
+	<update id="updateTaskAsMember" parameterType="com.gips.taskapp.dto.TaskEditDto">
+		UPDATE tasks
+		SET
+			progress = #{progress},
+			memo = #{memo}
+		WHERE task_id = #{taskId}
+	</update>
+
+</mapper>

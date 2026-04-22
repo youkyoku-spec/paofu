@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>タスク編集</title>
+</head>
+
+<body>
+	<form th:action="@{/submit}" th:object="${taskEditForm}" method="post">
+
+		<div th:if="${roleName == 'leader'}">
+
+			<select th:field="*{assigneeId}">
+				<option value="">作業者を選択</option>
+				<option th:each="u : ${userList}" th:value="${u.loginId}" th:text="${u.userName}">
+				</option>
+			</select>
+
+			<input type="text" th:field="*{taskName}">
+
+			<textarea th:field="*{taskDetail}"></textarea>
+
+			<input type="date" th:field="*{startDate}">
+
+			<input type="date" th:field="*{dueDate}">
+
+			<input type="date" th:field="*{completedDate}">
+		</div>
+
+		<div th:if="${roleName == 'leader'}">
+			<h2 th:text="*{taskName}"></h2>
+		</div>
+
+		<input type="number" th:field="*{progress}" min="0" max="100">
+
+		<textarea th:field="*{memo}"></textarea>
+
+		<button type="submit">登録</button>
+
+		<a th:href="@{/taskList}">
+			<button type="button">キャンセル</button>
+		</a>
+
+	</form>
+</body>
+
+</html>
