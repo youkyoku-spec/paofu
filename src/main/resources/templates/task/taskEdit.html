@@ -9,8 +9,8 @@
 <body>
 	<form th:action="@{/submit}" th:object="${taskEditForm}" method="post">
 
+		<!-- リーダー時に表示 -->
 		<div th:if="${roleName == 'leader'}">
-
 			<select th:field="*{assigneeId}">
 				<option value="">作業者を選択</option>
 				<option th:each="u : ${userList}" th:value="${u.loginId}" th:text="${u.userName}">
@@ -28,16 +28,18 @@
 			<input type="date" th:field="*{completedDate}">
 		</div>
 
+		<!-- メンバー時に表示 -->
 		<div th:if="${roleName == 'leader'}">
 			<h2 th:text="*{taskName}"></h2>
 		</div>
 
+		<!-- 共通項目 -->
 		<input type="number" th:field="*{progress}" min="0" max="100">
 
 		<textarea th:field="*{memo}"></textarea>
 
+		<!-- ボタン -->
 		<button type="submit">登録</button>
-
 		<a th:href="@{/taskList}">
 			<button type="button">キャンセル</button>
 		</a>
