@@ -67,12 +67,12 @@ public class TaskEditController {
 			return "redirect:/taskList";
 		}
 
-		// タスクIDに応じたタスクの情報を取得する
+		// タスクIDに応じたタスク情報を取得する
 		TaskEditForm form = service.getTask(taskId);
 
 		// 権限名をモデルに追加する
 		model.addAttribute("roleName", roleName);
-		// タスクの情報をモデルに追加する
+		// タスク情報をモデルに追加する
 		model.addAttribute("taskEditForm", form);
 		// ユーザー一覧をモデルに追加する
 		model.addAttribute("userList", service.getUserList());
@@ -84,7 +84,7 @@ public class TaskEditController {
 	/**
 	 * タスクの登録、編集を行う
 	 * 
-	 * @param form フォーム
+	 * @param form タスク情報
 	 * @param result バリデーション結果
 	 * @param model モデル
 	 * @param session セッション
@@ -154,7 +154,7 @@ public class TaskEditController {
 		// セッションからタスクIDを取得する
 		Integer taskId = (Integer) session.getAttribute("taskId");
 
-		// タスクの情報を登録する
+		// タスク情報を登録する
 		service.saveTask(roleName, taskId, form);
 
 		// タスク一覧画面へリダイレクトする
