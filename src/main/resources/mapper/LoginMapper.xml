@@ -6,7 +6,7 @@
 <mapper namespace="com.gips.taskapp.mapper.LoginMapper">
 
 	<select id="findUser" resultType="com.gips.taskapp.dto.UserDto">
-		SELECT u.role_name AS roleName,
+		SELECT r.role_name AS roleName,
 		u.login_id AS loginId,
 		u.password AS password,
 		u.user_name AS userName,
