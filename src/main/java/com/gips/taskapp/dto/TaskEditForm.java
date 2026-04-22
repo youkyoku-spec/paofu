@@ -20,25 +20,25 @@ public class TaskEditForm {
 	private Integer taskId;
 
 	// 作業者
-	@NotBlank(message = "作業者を選択してください")
+	@NotBlank(message = "作業者を選択してください", groups = LeaderGroup.class)
 	private String assigneeId;
 
 	// タスク名
-	@NotBlank(message = "タスク名を入力してください")
+	@NotBlank(message = "タスク名を入力してください", groups = LeaderGroup.class)
 	@Size(max = 10, message = "タスク名は10文字以内で入力してください")
 	private String taskName;
 
 	// タスク内容
-	@NotBlank(message = "タスク内容を入力してください")
+	@NotBlank(message = "タスク内容を入力してください", groups = LeaderGroup.class)
 	@Size(max = 100, message = "タスク内容は100文字以内で入力してください")
 	private String taskDetail;
 
 	// 開始日
-	@NotNull(message = "開始日を入力してください")
+	@NotNull(message = "開始日を入力してください", groups = LeaderGroup.class)
 	private LocalDate startDate;
 
 	// 完了予定日
-	@NotNull(message = "完了予定日を入力してください")
+	@NotNull(message = "完了予定日を入力してください", groups = LeaderGroup.class)
 	private LocalDate dueDate;
 
 	// 完了日

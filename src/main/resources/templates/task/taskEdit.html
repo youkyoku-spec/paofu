@@ -13,8 +13,7 @@
 		<div th:if="${roleName == 'leader'}">
 			<select th:field="*{assigneeId}">
 				<option value="">作業者を選択</option>
-				<option th:each="u : ${userList}" th:value="${u.loginId}" th:text="${u.userName}">
-				</option>
+				<option th:each="u : ${userList}" th:value="${u.loginId}" th:text="${u.userName}"></option>
 			</select>
 
 			<input type="text" th:field="*{taskName}">
@@ -29,7 +28,7 @@
 		</div>
 
 		<!-- メンバー時に表示 -->
-		<div th:if="${roleName == 'leader'}">
+		<div th:if="${roleName == 'member'}">
 			<h2 th:text="*{taskName}"></h2>
 		</div>
 
@@ -37,6 +36,13 @@
 		<input type="number" th:field="*{progress}" min="0" max="100">
 
 		<textarea th:field="*{memo}"></textarea>
+
+		<!-- バリデーションエラーメッセージ -->
+		<div th:if="${#fields.hasErrors()}">
+			<ul>
+				<li th:each="err : ${#fields.errors()}" th:text="${err}"></li>
+			</ul>
+		</div>
 
 		<!-- ボタン -->
 		<button type="submit">登録</button>

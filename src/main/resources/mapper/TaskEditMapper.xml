@@ -10,7 +10,7 @@
 		resultType="com.gips.taskapp.dto.TaskEditDto">
 		SELECT
 		t.task_id AS taskId,
-		t.assignee_id AS assignee_id,
+		t.assignee_id AS assigneeId,
 		t.task_name AS taskName,
 		t.task_detail AS taskDetail,
 		t.start_date AS
