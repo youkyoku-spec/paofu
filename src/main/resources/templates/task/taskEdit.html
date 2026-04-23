@@ -18,46 +18,55 @@
 
 			<!-- リーダー時に表示 -->
 			<div th:if="${roleName == 'leader'}">
+
 				<label>作業者</label>
-				<select th:field="*{assigneeId}">
+				<select th:field="*{assigneeId}" th:classappend="${#fields.hasErrors('assigneeId')} ? 'input-error'">
 					<option value="">作業者を選択</option>
 					<option th:each="u : ${userList}" th:value="${u.loginId}" th:text="${u.userName}"></option>
 				</select>
+				<p class="field-error" th:errors="*{assigneeId}"></p>
 
 				<label th:for="*{taskName}">タスク名</label>
-				<input type="text" th:field="*{taskName}">
+				<input type="text" th:field="*{taskName}"
+					th:classappend="${#fields.hasErrors('taskName')} ? 'input-error'">
+				<p class="field-error" th:errors="*{taskName}"></p>
 
 				<label th:for="*{taskDetail}">タスク内容</label>
-				<textarea th:field="*{taskDetail}"></textarea>
+				<textarea th:field="*{taskDetail}"
+					th:classappend="${#fields.hasErrors('taskDetail')} ? 'input-error'"></textarea>
+				<p class="field-error" th:errors="*{taskDetail}"></p>
 
 				<label th:for="*{startDate}">開始日</label>
-				<input type="date" th:field="*{startDate}">
+				<input type="date" th:field="*{startDate}"
+					th:classappend="${#fields.hasErrors('startDate')} ? 'input-error'">
+				<p class="field-error" th:errors="*{startDate}"></p>
 
 				<label th:for="*{dueDate}">完了予定日</label>
-				<input type="date" th:field="*{dueDate}">
+				<input type="date" th:field="*{dueDate}"
+					th:classappend="${#fields.hasErrors('dueDate')} ? 'input-error'">
+				<p class="field-error" th:errors="*{dueDate}"></p>
 
 				<label th:for="*{completedDate}">完了日</label>
-				<input type="date" th:field="*{completedDate}">
+				<input type="date" th:field="*{completedDate}"
+					th:classappend="${#fields.hasErrors('completedDate')} ? 'input-error'">
+				<p class="field-error" th:errors="*{completedDate}"></p>
+
 			</div>
 
 			<!-- メンバー時に表示 -->
 			<div th:if="${roleName == 'member'}">
+
 				<p><strong th:text="*{taskName}"></strong></p>
+
 			</div>
 
 			<!-- 共通項目 -->
 			<label th:for="*{progress}">進捗率</label>
-			<input type="number" th:field="*{progress}" min="0" max="100">
+			<input type="number" th:field="*{progress}"
+				th:classappend="${#fields.hasErrors('progress')} ? 'input-error'" min="0" max="100">
 
 			<label th:for="*{memo}">メモ</label>
-			<textarea th:field="*{memo}"></textarea>
-
-			<!-- バリデーションエラーメッセージ -->
-			<div th:if="${#fields.hasErrors()}">
-				<ul>
-					<li th:each="err : ${#fields.errors()}" th:text="${err}"></li>
-				</ul>
-			</div>
+			<textarea th:field="*{memo}" th:classappend="${#fields.hasErrors('memo')} ? 'input-error'"></textarea>
 
 			<button type="submit">登録</button>
 
@@ -66,6 +75,8 @@
 		<a th:href="@{/taskList}" class="cancel-btn">キャンセル</a>
 
 	</div>
+
+	<script src="js/taskEdit.js"></script>
 
 </body>
 
