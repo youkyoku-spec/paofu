@@ -4,8 +4,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gips.taskapp.dto.UserDto;
 
+/**
+ * ログイン画面マッパー
+ */
 @Mapper
 public interface LoginMapper {
-// findAllはメソッド名↓
+	// findUserはメソッド名
+	// 一致するログインIDとパスワードをDBから受け取る、それ以外はnull
 	UserDto findUser(String loginId, String password);
 }
