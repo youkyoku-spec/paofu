@@ -10,13 +10,28 @@ import com.gips.taskapp.dto.UserDto;
  */
 public interface TaskEditService {
 
-	// タスクIDに応じたタスク情報を取得する
+	/**
+	 * タスクIDに応じたタスク情報を取得する
+	 * 
+	 * @param taskId タスクID
+	 * @return タスク情報
+	 */
 	TaskEditForm getTask(Integer taskId);
 
-	// ユーザー一覧を取得する
+	/**
+	 * ユーザー一覧を取得する
+	 * 
+	 * @return ユーザー一覧
+	 */
 	List<UserDto> getUserList();
 
-	// タスクの編集、登録を行う
+	/**
+	 * タスクの編集、登録を行う
+	 * 
+	 * @param roleId 権限ID
+	 * @param taskId タスクID
+	 * @param form タスク情報
+	 */
 	void saveTask(String roleId, Integer taskId, TaskEditForm form);
 
 }

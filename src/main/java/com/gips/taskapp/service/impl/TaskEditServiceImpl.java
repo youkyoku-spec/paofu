@@ -3,6 +3,7 @@ package com.gips.taskapp.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gips.taskapp.common.Constants;
 import com.gips.taskapp.dto.TaskEditDto;
@@ -15,6 +16,7 @@ import com.gips.taskapp.service.TaskEditService;
  * タスク編集サービス
  */
 @Service
+@Transactional
 public class TaskEditServiceImpl implements TaskEditService {
 
 	private final TaskEditMapper mapper;
@@ -23,12 +25,6 @@ public class TaskEditServiceImpl implements TaskEditService {
 		this.mapper = mapper;
 	}
 
-	/**
-	 * タスクIDに応じたタスク情報を取得する
-	 * 
-	 * @param taskId タスクID
-	 * @return タスク情報
-	 */
 	@Override
 	public TaskEditForm getTask(Integer taskId) {
 
@@ -51,23 +47,11 @@ public class TaskEditServiceImpl implements TaskEditService {
 		return form;
 	}
 
-	/**
-	 * ユーザー一覧を取得する
-	 * 
-	 * @return ユーザー一覧
-	 */
 	@Override
 	public List<UserDto> getUserList() {
 		return mapper.findAllUsers();
 	}
 
-	/**
-	 * タスクの編集、登録を行う
-	 * 
-	 * @param roleId 権限ID
-	 * @param taskId タスクID
-	 * @param form タスク情報
-	 */
 	@Override
 	public void saveTask(String roleId, Integer taskId, TaskEditForm form) {
 
