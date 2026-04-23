@@ -29,13 +29,20 @@ public class TaskListServiceImpl implements TaskListService {
 	 * @param loginId		ユーザID
 	 * @return タスク一覧
 	 */
-	public List<TaskListDto> getMemberTask(String loginId) {
+	public List<TaskListDto> getMemberTask(String loginId, String status) {
 
 		List<TaskListDto> taskList = taskListMapper.getMemberTask(loginId);
 
 		// 状態判定を行う
 		for (TaskListDto task : taskList) {
 			task.setStatus(calcStatus(task));
+		}
+
+		// 状態フィルタ
+		if (status != null && !status.isEmpty()) {
+			taskList = taskList.stream()
+					.filter(t -> t.getStatus().name().equals(status))
+					.toList();
 		}
 
 		return taskList;
@@ -47,13 +54,20 @@ public class TaskListServiceImpl implements TaskListService {
 	 * @param loginId		ユーザID
 	 * @return タスク一覧
 	 */
-	public List<TaskListDto> getLeaderTask(String loginId) {
+	public List<TaskListDto> getLeaderTask(String loginId, String status) {
 		// リーダーのタスク一覧を取得
 		List<TaskListDto> taskList = taskListMapper.getLeaderTask(loginId);
 
 		// 状態判定を行う
 		for (TaskListDto t : taskList) {
 			t.setStatus(calcStatus(t));
+		}
+
+		// 状態フィルタ
+		if (status != null && !status.isEmpty()) {
+			taskList = taskList.stream()
+					.filter(t -> t.getStatus().name().equals(status))
+					.toList();
 		}
 
 		return taskList;
