@@ -3,7 +3,6 @@ package com.gips.taskapp.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gips.taskapp.common.Status;
@@ -20,8 +19,11 @@ import com.gips.taskapp.service.TaskListService;
 @Service
 public class TaskListServiceImpl implements TaskListService {
 
-	@Autowired
-	private TaskListMapper taskListMapper;
+	private final TaskListMapper taskListMapper;
+
+	public TaskListServiceImpl(TaskListMapper taskListMapper) {
+		this.taskListMapper = taskListMapper;
+	}
 
 	/**
 	 * メンバーのタスク一覧取得サービス

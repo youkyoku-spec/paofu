@@ -11,7 +11,7 @@ import com.gips.taskapp.service.LoginService;
  */
 @Service
 public class LoginServiceImpl implements LoginService {
-	//フィールド
+
 	private final LoginMapper mapper;
 
 	public LoginServiceImpl(LoginMapper mapper) {
