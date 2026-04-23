@@ -4,59 +4,69 @@
 <head>
 	<meta charset="UTF-8">
 	<title>タスク編集</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/taskEdit.css">
 </head>
 
 <body>
-	<form th:action="@{/submit}" th:object="${taskEditForm}" method="post">
 
-		<!-- リーダー時に表示 -->
-		<div th:if="${roleName == 'leader'}">
-			<label>作業者</label>
-			<select th:field="*{assigneeId}">
-				<option value="">作業者を選択</option>
-				<option th:each="u : ${userList}" th:value="${u.loginId}" th:text="${u.userName}"></option>
-			</select>
+	<div class="task-container">
 
-			<label th:for="*{taskName}">タスク名</label>
-			<input type="text" th:field="*{taskName}">
+		<h1>タスク編集</h1>
 
-			<label th:for="*{taskDetail}">タスク内容</label>
-			<textarea th:field="*{taskDetail}"></textarea>
+		<form th:action="@{/submit}" th:object="${taskEditForm}" method="post">
 
-			<label th:for="*{startDate}">開始日</label>
-			<input type="date" th:field="*{startDate}">
+			<!-- リーダー時に表示 -->
+			<div th:if="${roleName == 'leader'}">
+				<label>作業者</label>
+				<select th:field="*{assigneeId}">
+					<option value="">作業者を選択</option>
+					<option th:each="u : ${userList}" th:value="${u.loginId}" th:text="${u.userName}"></option>
+				</select>
 
-			<label th:for="*{dueDate}">完了予定日</label>
-			<input type="date" th:field="*{dueDate}">
+				<label th:for="*{taskName}">タスク名</label>
+				<input type="text" th:field="*{taskName}">
 
-			<label th:for="*{completedDate}">完了日</label>
-			<input type="date" th:field="*{completedDate}">
-		</div>
+				<label th:for="*{taskDetail}">タスク内容</label>
+				<textarea th:field="*{taskDetail}"></textarea>
 
-		<!-- メンバー時に表示 -->
-		<div th:if="${roleName == 'member'}">
-			<p th:text="*{taskName}"></p>
-		</div>
+				<label th:for="*{startDate}">開始日</label>
+				<input type="date" th:field="*{startDate}">
 
-		<!-- 共通項目 -->
-		<label th:for="*{progress}">進捗率</label>
-		<input type="number" th:field="*{progress}" min="0" max="100">
+				<label th:for="*{dueDate}">完了予定日</label>
+				<input type="date" th:field="*{dueDate}">
 
-		<label th:for="*{memo}">メモ</label>
-		<textarea th:field="*{memo}"></textarea>
+				<label th:for="*{completedDate}">完了日</label>
+				<input type="date" th:field="*{completedDate}">
+			</div>
 
-		<!-- バリデーションエラーメッセージ -->
-		<div th:if="${#fields.hasErrors()}">
-			<ul>
-				<li th:each="err : ${#fields.errors()}" th:text="${err}"></li>
-			</ul>
-		</div>
+			<!-- メンバー時に表示 -->
+			<div th:if="${roleName == 'member'}">
+				<p><strong th:text="*{taskName}"></strong></p>
+			</div>
 
-		<!-- ボタン -->
-		<button type="submit">登録</button>
-		<a th:href="@{/taskList}">キャンセル</a>
+			<!-- 共通項目 -->
+			<label th:for="*{progress}">進捗率</label>
+			<input type="number" th:field="*{progress}" min="0" max="100">
 
-	</form>
+			<label th:for="*{memo}">メモ</label>
+			<textarea th:field="*{memo}"></textarea>
+
+			<!-- バリデーションエラーメッセージ -->
+			<div th:if="${#fields.hasErrors()}">
+				<ul>
+					<li th:each="err : ${#fields.errors()}" th:text="${err}"></li>
+				</ul>
+			</div>
+
+			<button type="submit">登録</button>
+
+		</form>
+
+		<a th:href="@{/taskList}" class="cancel-btn">キャンセル</a>
+
+	</div>
+
 </body>
 
 </html>

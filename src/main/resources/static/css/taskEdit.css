@@ -1,0 +1,133 @@
+/* 全体レイアウト */
+body {
+	font-family: "Segoe UI", sans-serif;
+	background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+	margin: 0;
+	display: flex;
+	justify-content: center;
+}
+
+/* タスク編集ボックス */
+.task-container {
+	background: #ffffff;
+	padding: 40px 50px;
+	border-radius: 12px;
+	width: 450px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	animation: fadeIn 0.8s ease;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+/* タイトル */
+.task-container h1 {
+	text-align: center;
+	margin-bottom: 25px;
+	color: #333;
+}
+
+/* ラベル */
+.task-container label {
+	font-weight: bold;
+	color: #555;
+	display: block;
+	margin-top: 12px;
+}
+
+/* 入力欄（幅を完全統一） */
+.task-container input[type="text"],
+.task-container input[type="date"],
+.task-container input[type="number"],
+.task-container textarea,
+.task-container select {
+	width: 100%;
+	padding: 12px;
+	margin-top: 6px;
+	margin-bottom: 18px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 14px;
+	transition: 0.2s;
+	box-sizing: border-box;
+	/* ← 幅ズレ防止の最重要ポイント */
+}
+
+/* textarea だけ縦方向に広げる */
+.task-container textarea {
+	height: 120px;
+	/* ← 好きな高さに調整可能 */
+	resize: vertical;
+	/* 横方向のリサイズは禁止、縦だけ許可 */
+}
+
+/* フォーカス時の光る演出 */
+.task-container input:focus,
+.task-container textarea:focus,
+.task-container select:focus {
+	border-color: #74ebd5;
+	box-shadow: 0 0 5px rgba(116, 235, 213, 0.5);
+	outline: none;
+}
+
+/* ボタン */
+.task-container button {
+	width: 100%;
+	padding: 12px;
+	background: #74ebd5;
+	border: none;
+	border-radius: 6px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.2s;
+	margin-top: 10px;
+}
+
+/* ボタンのホバー */
+.task-container button:hover {
+	background: #5bd1c0;
+}
+
+/* キャンセルリンクをボタン風に */
+.task-container .cancel-btn {
+	display: block;
+	text-align: center;
+	padding: 12px;
+	background: #ccc;
+	border-radius: 6px;
+	color: #333;
+	text-decoration: none;
+	margin-top: 10px;
+	transition: 0.2s;
+}
+
+.task-container .cancel-btn:hover {
+	background: #bbb;
+}
+
+/* エラーメッセージ */
+.error {
+	color: red;
+	text-align: center;
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+/* ボタン押下アニメーション */
+button:active {
+	transform: scale(0.95);
+	transition: 0.1s;
+}
+
+/* フェードイン */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
