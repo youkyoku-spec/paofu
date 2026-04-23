@@ -5,6 +5,7 @@
 
 <mapper namespace="com.gips.taskapp.mapper.LoginMapper">
 
+	<!-- 一致するログインIDとパスワードを取得する ユーザマスタと権限マスタから必要な情報を受け取る -->
 	<select id="findUser" resultType="com.gips.taskapp.dto.UserDto">
 		SELECT
 		u.login_id AS loginId,

@@ -1,1 +1,106 @@
-@charset "UTF-8";
+/* 全体レイアウト */
+body {
+	font-family: "Segoe UI", sans-serif;
+	background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+	height: 100vh;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* ログインボックス */
+.login-container {
+	background: #ffffff;
+	padding: 40px 50px;
+	border-radius: 12px;
+	width: 350px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	animation: fadeIn 0.8s ease;
+}
+
+/* タイトル */
+.login-container h1 {
+	text-align: center;
+	margin-bottom: 25px;
+	color: #333;
+}
+
+/* ラベル */
+.login-container label {
+	font-weight: bold;
+	color: #555;
+}
+
+/* 入力欄 */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+	width: 100%;
+	padding: 12px;
+	margin-top: 6px;
+	margin-bottom: 18px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 14px;
+	transition: 0.2s;
+}
+
+/* フォーカス時の光る演出 */
+.login-container input:focus {
+	border-color: #74ebd5;
+	box-shadow: 0 0 5px rgba(116, 235, 213, 0.5);
+	outline: none;
+}
+
+/* ボタン */
+.login-container button {
+	width: 100%;
+	padding: 12px;
+	background: #74ebd5;
+	border: none;
+	border-radius: 6px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+/* ボタンのホバー */
+.login-container button:hover {
+	background: #5bd1c0;
+}
+
+/* エラーメッセージ */
+.error {
+	color: red;
+	text-align: center;
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+button:active {
+	transform: scale(0.95);
+	transition: 0.1s;
+}
+
+input:focus {
+	border-color: #74ebd5;
+	box-shadow: 0 0 8px rgba(116, 235, 213, 0.6);
+	transition: 0.2s;
+}
+
+
+/* フェードイン */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+
+}
