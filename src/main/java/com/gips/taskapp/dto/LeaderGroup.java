@@ -1,5 +1,10 @@
 package com.gips.taskapp.dto;
 
-public interface LeaderGroup {
+import jakarta.validation.groups.Default;
+
+/**
+ * バリデーションのリーダーグループを表すマーカーインターフェイス
+ */
+public interface LeaderGroup extends Default {
 
 }

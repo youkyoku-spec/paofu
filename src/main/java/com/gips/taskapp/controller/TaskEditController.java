@@ -14,7 +14,7 @@ import com.gips.taskapp.common.Constants;
 import com.gips.taskapp.dto.LeaderGroup;
 import com.gips.taskapp.dto.MemberGroup;
 import com.gips.taskapp.dto.TaskEditForm;
-import com.gips.taskapp.service.impl.TaskEditServiceImpl;
+import com.gips.taskapp.service.TaskEditService;
 
 /**
  * タスク編集コントローラー
@@ -22,10 +22,10 @@ import com.gips.taskapp.service.impl.TaskEditServiceImpl;
 @Controller
 public class TaskEditController {
 
-	private final TaskEditServiceImpl service;
+	private final TaskEditService service;
 	private final SmartValidator validator;
 
-	TaskEditController(TaskEditServiceImpl service, SmartValidator validator) {
+	TaskEditController(TaskEditService service, SmartValidator validator) {
 		this.service = service;
 		this.validator = validator;
 	}
@@ -43,12 +43,8 @@ public class TaskEditController {
 		// セッションのタスクIDを取り除く
 		session.removeAttribute("taskId");
 
-		// 権限名をモデルに追加する
-		model.addAttribute("roleName", session.getAttribute("roleName"));
-		// フォームをモデルに追加する
-		model.addAttribute("taskEditForm", new TaskEditForm());
-		// ユーザー一覧をモデルに追加する
-		model.addAttribute("userList", service.getUserList());
+		// ビューに渡す情報をモデルに追加する
+		setupModel(model, session.getAttribute("roleName"), new TaskEditForm());
 
 		// タスク編集画面のビューを返却する
 		return "task/taskEdit";
@@ -76,12 +72,8 @@ public class TaskEditController {
 		// タスクIDに応じたタスク情報を取得する
 		TaskEditForm form = service.getTask(taskId);
 
-		// 権限名をモデルに追加する
-		model.addAttribute("roleName", session.getAttribute("roleName"));
-		// タスク情報をモデルに追加する
-		model.addAttribute("taskEditForm", form);
-		// ユーザー一覧をモデルに追加する
-		model.addAttribute("userList", service.getUserList());
+		// ビューに渡す情報をモデルに追加する
+		setupModel(model, session.getAttribute("roleName"), form);
 
 		// タスク編集画面のビューを返却する
 		return "task/taskEdit";
@@ -115,12 +107,9 @@ public class TaskEditController {
 
 		// バリデーションエラーのチェック
 		if (result.hasErrors()) {
-			// 権限名をモデルに追加する
-			model.addAttribute("roleName", roleName);
-			// フォームをモデルに追加する
-			model.addAttribute("taskEditForm", form);
-			// ユーザー一覧をモデルに追加する
-			model.addAttribute("userList", service.getUserList());
+
+			// ビューに渡す情報をモデルに追加する
+			setupModel(model, roleName, form);
 
 			// タスク編集画面のビューを返却する
 			return "task/taskEdit";
@@ -134,12 +123,8 @@ public class TaskEditController {
 			result.rejectValue("dueDate", "",
 					"完了予定日は開始日以降の日付を入力してください");
 
-			// 権限名をモデルに追加する
-			model.addAttribute("roleName", roleName);
-			// フォームをモデルに追加する
-			model.addAttribute("taskEditForm", form);
-			// ユーザー一覧をモデルに追加する
-			model.addAttribute("userList", service.getUserList());
+			// ビューに渡す情報をモデルに追加する
+			setupModel(model, roleName, form);
 
 			// タスク編集画面のビューを返却する
 			return "task/taskEdit";
@@ -153,12 +138,8 @@ public class TaskEditController {
 			result.rejectValue("completedDate", "",
 					"完了日は開始日以降の日付を入力してください");
 
-			// 権限名をモデルに追加する
-			model.addAttribute("roleName", roleName);
-			// フォームをモデルに追加する
-			model.addAttribute("taskEditForm", form);
-			// ユーザー一覧をモデルに追加する
-			model.addAttribute("userList", service.getUserList());
+			// ビューに渡す情報をモデルに追加する
+			setupModel(model, roleName, form);
 
 			// タスク編集画面のビューを返却する
 			return "task/taskEdit";
@@ -172,6 +153,23 @@ public class TaskEditController {
 
 		// タスク一覧画面へリダイレクトする
 		return "redirect:/taskList";
+	}
+
+	/**
+	 * ビューに渡す情報をモデルに追加する
+	 * 
+	 * @param model モデル
+	 * @param roleName 権限ID
+	 * @param form タスク情報
+	 */
+	private void setupModel(Model model, Object roleName, TaskEditForm form) {
+
+		// 権限名をモデルに追加する
+		model.addAttribute("roleName", roleName);
+		// フォームをモデルに追加する
+		model.addAttribute("taskEditForm", form);
+		// ユーザー一覧をモデルに追加する
+		model.addAttribute("userList", service.getUserList());
 	}
 
 }

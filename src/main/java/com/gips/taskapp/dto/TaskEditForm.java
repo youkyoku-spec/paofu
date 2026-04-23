@@ -48,7 +48,7 @@ public class TaskEditForm {
 	@NotNull(message = "進捗率を入力してください")
 	@Min(value = 0, message = "進捗率が無効な値です")
 	@Max(value = 100, message = "進捗率が無効な値です")
-	private Integer progress;
+	private Integer progress = 0;
 
 	// メモ
 	@Size(max = 100, message = "メモは100文字以内で入力してください")
