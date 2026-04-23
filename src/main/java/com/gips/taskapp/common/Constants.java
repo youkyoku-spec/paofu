@@ -1,7 +1,7 @@
 package com.gips.taskapp.common;
 
 /**
- * 定数
+ * 権限名を表す定数クラス
  *
  */
 public final class Constants {
