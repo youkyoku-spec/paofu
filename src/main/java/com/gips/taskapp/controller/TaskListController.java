@@ -35,7 +35,7 @@ public class TaskListController {
 	 * @return 呼出すビュー
 	 */
 	@GetMapping("/taskList")
-	public String init(Model model, HttpSession session) {
+	public String init(@RequestParam(required = false) String status, Model model, HttpSession session) {
 		// セッションからログインユーザー情報（login_id、role_name）を取得する
 		String loginId = (String) session.getAttribute("loginId");
 		String roleName = (String) session.getAttribute("roleName");
@@ -46,11 +46,11 @@ public class TaskListController {
 		if (Constants.MEMBER.equals(roleName)) {
 			// メンバーの場合
 			// メンバーのタスク一覧取得サービスを呼び出して、ログインユーザーのタスクのみ取得する
-			taskList = taskListService.getMemberTask(loginId);
+			taskList = taskListService.getMemberTask(loginId, status);
 		} else if (Constants.LEADER.equals(roleName)) {
 			// リーダーの場合
 			// リーダーのタスク一覧取得サービスを呼び出して、全てのタスクを取得する
-			taskList = taskListService.getLeaderTask(loginId);
+			taskList = taskListService.getLeaderTask(loginId, status);
 		}
 
 		// 取得したタスク一覧をモデルに設定する
@@ -58,6 +58,9 @@ public class TaskListController {
 
 		// 権限名をモデルに設定する
 		model.addAttribute("roleName", roleName);
+
+		// 選択状態保持用
+		model.addAttribute("status", status);
 
 		// タスク一覧画面のビューを返却する
 		return "task/taskList";
