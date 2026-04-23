@@ -34,7 +34,7 @@ body {
 	margin-top: 12px;
 }
 
-/* 入力欄（幅を完全統一） */
+/* 入力欄 */
 .task-container input[type="text"],
 .task-container input[type="date"],
 .task-container input[type="number"],
@@ -49,15 +49,12 @@ body {
 	font-size: 14px;
 	transition: 0.2s;
 	box-sizing: border-box;
-	/* ← 幅ズレ防止の最重要ポイント */
 }
 
-/* textarea だけ縦方向に広げる */
+/* テキストエリアだけ縦方向に広げる */
 .task-container textarea {
 	height: 120px;
-	/* ← 好きな高さに調整可能 */
 	resize: vertical;
-	/* 横方向のリサイズは禁止、縦だけ許可 */
 }
 
 /* フォーカス時の光る演出 */
@@ -105,12 +102,17 @@ body {
 	background: #bbb;
 }
 
-/* エラーメッセージ */
-.error {
+/* バリデーションエラー */
+.field-error {
 	color: red;
-	text-align: center;
-	margin-bottom: 15px;
-	font-weight: bold;
+	font-size: 13px;
+	margin-top: -12px;
+	margin-bottom: 10px;
+}
+
+.input-error {
+	border-color: red !important;
+	box-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
 }
 
 /* ボタン押下アニメーション */
