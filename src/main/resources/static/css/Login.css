@@ -83,12 +83,6 @@ button:active {
 	transition: 0.1s;
 }
 
-input:focus {
-	border-color: #74ebd5;
-	box-shadow: 0 0 8px rgba(116, 235, 213, 0.6);
-	transition: 0.2s;
-}
-
 
 /* フェードイン */
 @keyframes fadeIn {
@@ -103,4 +97,97 @@ input:focus {
 	}
 
 
+}
+
+/* スパークル（四方向に尖った光） */
+.sparkle-particle {
+	position: fixed;
+	pointer-events: none;
+	width: var(--size);
+	height: var(--size);
+	background: var(--color);
+	transform: rotate(45deg);
+	animation: sparkle-move 0.60s ease-out forwards;
+	opacity: 1;
+
+	/* スパークル形状を作る（十字の光） */
+	clip-path: polygon(50% 0%,
+			60% 40%,
+			100% 50%,
+			60% 60%,
+			50% 100%,
+			40% 60%,
+			0% 50%,
+			40% 40%);
+}
+
+@keyframes sparkle-move {
+	0% {
+		transform: rotate(45deg) scale(1);
+		opacity: 1;
+	}
+
+	100% {
+		transform: rotate(45deg) translate(var(--x), var(--y)) scale(0.3);
+		opacity: 0;
+	}
+}
+
+/* 波紋エフェクト（クリック中心から広がるリング） */
+.ripple-effect {
+	position: fixed;
+	width: 10px;
+	height: 10px;
+	border: 2px solid rgba(255, 255, 255, 0.8);
+	/* 白い光の輪 */
+	border-radius: 50%;
+	pointer-events: none;
+	transform: translate(-50%, -50%) scale(0.2);
+	animation: ripple-expand 0.8s ease-out forwards;
+}
+
+@keyframes ripple-expand {
+	0% {
+		opacity: 0.8;
+		transform: translate(-50%, -50%) scale(0.2);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(6);
+		/* 大きく広がる */
+	}
+}
+
+/* 虹色の柔らか波紋 */
+.ripple-effect {
+	position: fixed;
+	width: 20px;
+	height: 20px;
+	border: 3px solid var(--ripple-color);
+	border-radius: 50%;
+	pointer-events: none;
+
+	/* 柔らかい光のぼかし */
+	box-shadow: 0 0 12px var(--ripple-color);
+
+	/* 中心に合わせる */
+	transform: translate(-50%, -50%) scale(0.2);
+
+	/* ふわっと広がるアニメーション */
+	animation: ripple-expand-soft 0.45s ease-out forwards;
+}
+
+@keyframes ripple-expand-soft {
+	0% {
+		opacity: 0.8;
+		transform: translate(-50%, -50%) scale(0.2);
+		box-shadow: 0 0 12px var(--ripple-color);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(5.5);
+		box-shadow: 0 0 25px var(--ripple-color);
+	}
 }

@@ -10,6 +10,11 @@ import com.gips.taskapp.dto.UserDto;
 @Mapper
 public interface LoginMapper {
 	// findUserはメソッド名
-	// 一致するログインIDとパスワードをDBから受け取る、それ以外はnull
+	/**
+	 * // 一致するログインIDとパスワードをDBから受け取る、それ以外はnull
+	 * @param loginId
+	 * @param password
+	 * @return
+	 */
 	UserDto findUser(String loginId, String password);
 }
