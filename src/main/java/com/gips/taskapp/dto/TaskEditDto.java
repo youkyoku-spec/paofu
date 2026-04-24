@@ -10,9 +10,7 @@ import lombok.Data;
 @Data
 public class TaskEditDto {
 
-	/**
-	 * タスクid
-	 */
+	// タスクid
 	private Integer taskId;
 
 	// 作業者
