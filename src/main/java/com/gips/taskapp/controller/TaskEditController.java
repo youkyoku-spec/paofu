@@ -42,6 +42,11 @@ public class TaskEditController {
 	@GetMapping("/taskRegister")
 	String showRegisterView(Model model, HttpSession session) {
 
+		// 未ログイン時のアクセス対策
+		if (session.getAttribute("loginId") == null) {
+			return "redirect:/login";
+		}
+
 		// セッションのタスクIDを取り除く
 		session.removeAttribute("taskId");
 
@@ -61,6 +66,11 @@ public class TaskEditController {
 	 */
 	@GetMapping("/taskEdit")
 	String showEditView(Model model, HttpSession session) {
+
+		// // 未ログイン時のアクセス対策
+		if (session.getAttribute("loginId") == null) {
+			return "redirect:/login";
+		}
 
 		// セッションからタスクIDを取得する
 		Integer taskId = (Integer) session.getAttribute("taskId");
