@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>エラーが発生しました</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/error.css">
+</head>
+
+<body>
+	<div class="error-container">
+		<h1>エラーが発生しました</h1>
+
+		<p th:text="'ステータス: ' + ${status}"></p>
+		<p th:text="'エラー: ' + ${error}"></p>
+		<p th:text="'詳細: ' + ${message}"></p>
+
+		<a th:href="@{/login}">トップへ戻る</a>
+	</div>
+</body>
+
+</html>
