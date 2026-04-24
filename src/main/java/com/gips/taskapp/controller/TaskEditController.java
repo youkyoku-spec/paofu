@@ -107,26 +107,19 @@ public class TaskEditController {
 			validator.validate(form, result, MemberGroup.class);
 		}
 
-		// バリデーションエラーのチェック
-		if (result.hasErrors()) {
-
-			// ビューに渡す情報をモデルに追加する
-			setupModel(model, roleName, form);
-
-			// タスク編集画面のビューを返却する
-			return "task/taskEdit";
-		}
-
-		// 日付の整合性を検証し、結果を受け取る
+		// 日付の整合性を検証し、結果を取得する
 		Map<String, String> errors = service.checkDate(
 				form.getStartDate(), form.getDueDate(), form.getCompletedDate());
 
-		// 結果がエラーだった場合
-		if (!errors.isEmpty()) {
+		// バリデーションエラーがある場合
+		if (result.hasErrors() || !errors.isEmpty()) {
 
-			// バリデーションエラーのメッセージを追加する
-			for (Map.Entry<String, String> entry : errors.entrySet()) {
-				result.rejectValue(entry.getKey(), "", entry.getValue());
+			// 日付の整合性エラーがある場合
+			if (!errors.isEmpty()) {
+				for (Map.Entry<String, String> entry : errors.entrySet()) {
+					// バリデーションエラーのメッセージを追加する
+					result.rejectValue(entry.getKey(), "", entry.getValue());
+				}
 			}
 
 			// ビューに渡す情報をモデルに追加する

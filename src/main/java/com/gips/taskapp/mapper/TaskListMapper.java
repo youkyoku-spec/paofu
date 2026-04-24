@@ -19,18 +19,24 @@ public interface TaskListMapper {
 	/**
 	 * メンバーのタスク一覧取得
 	 *
-	 * @param loginId		ユーザーID
+	 * @param loginId		ログインID
+	 * @param limit			表示する件数
+	 * @param offset		ページ移動のためのスキップ数
 	 * @return タスク一覧
 	 */
-	List<TaskListDto> getMemberTask(@Param("loginId") String loginId);
+	List<TaskListDto> getMemberTask(@Param("loginId") String loginId, @Param("limit") int limit,
+			@Param("offset") int offset);
 
 	/**
 	 * リーダーのタスク一覧取得
 	 *
-	 * @param loginId		ユーザーID
+	 * @param loginId		ログインID
+	 * @param limit		    表示する件数
+	 * @param offset		ページ移動のためのスキップ数
 	 * @return タスク一覧
 	 */
-	List<TaskListDto> getLeaderTask(@Param("loginId") String loginId);
+	List<TaskListDto> getLeaderTask(@Param("loginId") String loginId, @Param("limit") int limit,
+			@Param("offset") int offset);
 
 	/**
 	 * タスクを削除
@@ -38,4 +44,21 @@ public interface TaskListMapper {
 	 * @param taskId		タスクID
 	 */
 	void deleteTask(@Param("taskId") Integer taskId);
+
+	/**
+	 * メンバーのタスク一覧総数
+	 *
+	 * @param loginId		ログインID
+	 * 
+	 * @return タスク一覧総数
+	 */
+	int countMemberTask(@Param("loginId") String loginId);
+
+	
+	/**
+	 * リーダーのタスク一覧総数
+	 *
+	 * @return タスク一覧総数
+	 */
+	int countLeaderTask();
 }
