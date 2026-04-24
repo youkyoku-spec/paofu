@@ -64,9 +64,11 @@
 			<label th:for="*{progress}">進捗率</label>
 			<input type="number" th:field="*{progress}"
 				th:classappend="${#fields.hasErrors('progress')} ? 'input-error'" min="0" max="100">
+			<p class="field-error" th:errors="*{progress}"></p>
 
 			<label th:for="*{memo}">メモ</label>
 			<textarea th:field="*{memo}" th:classappend="${#fields.hasErrors('memo')} ? 'input-error'"></textarea>
+			<p class="field-error" th:errors="*{memo}"></p>
 
 			<button type="submit">登録</button>
 
