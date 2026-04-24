@@ -13,14 +13,11 @@ import com.gips.taskapp.dto.TaskListDto;
 public interface TaskListService {
 
 	// タスク一覧取得サービス
-	List<TaskListDto> getTaskList(String loginId, String roleName, String status, int limit, int offset);
+	List<TaskListDto> getTaskList(String loginId, String roleName, String status, int page);
 
 	// タスク一覧削除サービス
 	void deleteTask(Integer taskId);
 
-	// メンバーのタスク一覧
-	int countMemberTask(String loginId);
-
-	// リーダーのタスク一覧
-	int countLeaderTask();
+	// タスク一覧総数取得
+	int countAfterFilter(String loginId, String roleName, String status);
 }

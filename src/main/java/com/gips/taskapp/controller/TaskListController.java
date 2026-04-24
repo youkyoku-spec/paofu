@@ -29,9 +29,6 @@ public class TaskListController {
 		this.taskListService = taskListService;
 	}
 
-	// 表示する件数
-	public static final int LIMIT = 10;
-
 	/**
 	 * タスク一覧画面初期表示
 	 * ルートにGETでアクセスされた際に呼び出されるメソッド
@@ -52,27 +49,13 @@ public class TaskListController {
 		// タスク一覧を初期化
 		List<TaskListDto> taskList = null;
 
-		// ページ設定
-		int limit = LIMIT;
-		int offset = page * limit;
-		int totalCount = 0;
-
 		// タスク一覧取得サービスを呼び出して、タスクを取得する
-		taskList = taskListService.getTaskList(loginId,roleName, status, limit, offset);
-		
-		if (Constants.MEMBER.equals(roleName)) {
+		taskList = taskListService.getTaskList(loginId, roleName, status, page);
 
-			// メンバーの場合
-			// メンバーのタスク一覧総数
-			totalCount = taskListService.countMemberTask(loginId);
-		} else if (Constants.LEADER.equals(roleName)) {
+		// タスク一覧総数を取得
+		int totalCount = taskListService.countAfterFilter(loginId, roleName, status);
 
-			// リーダーの場合
-			// リーダーのタスク一覧総数
-			totalCount = taskListService.countLeaderTask();
-		}
-
-		int totalPages = (int) Math.ceil((double) totalCount / LIMIT);
+		int totalPages = (int) Math.ceil((double) totalCount / Constants.PAGE);
 		// 10件不足する場合、1件に設定
 		if (totalPages == 0) {
 			totalPages = 1;

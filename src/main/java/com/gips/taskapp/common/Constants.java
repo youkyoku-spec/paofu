@@ -1,7 +1,7 @@
 package com.gips.taskapp.common;
 
 /**
- * 権限名を表す定数クラス
+ * 定数クラス
  *
  */
 public final class Constants {
@@ -14,4 +14,7 @@ public final class Constants {
 
 	// メンバー
 	public static final String MEMBER = "member";
+
+	// 1ページ表示する件数
+	public static final int PAGE = 10;
 }
