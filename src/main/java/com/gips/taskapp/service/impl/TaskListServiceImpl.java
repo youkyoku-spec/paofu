@@ -28,7 +28,7 @@ public class TaskListServiceImpl implements TaskListService {
 	/**
 	 * メンバーのタスク一覧取得サービス
 	 *
-	 * @param loginId		ユーザID
+	 * @param loginId		ユーザーID
 	 * @return タスク一覧
 	 */
 	public List<TaskListDto> getMemberTask(String loginId, String status) {
@@ -53,11 +53,11 @@ public class TaskListServiceImpl implements TaskListService {
 	/**
 	 * リーダーのタスク一覧取得サービス
 	 *
-	 * @param loginId		ユーザID
+	 * @param loginId		ユーザーID
 	 * @return タスク一覧
 	 */
 	public List<TaskListDto> getLeaderTask(String loginId, String status) {
-		// リーダーのタスク一覧を取得
+		// リーダーのタスク一覧を取得する
 		List<TaskListDto> taskList = taskListMapper.getLeaderTask(loginId);
 
 		// 状態判定を行う
@@ -78,7 +78,7 @@ public class TaskListServiceImpl implements TaskListService {
 	/**
 	 * タスク削除サービス
 	 *
-	 * @param loginId		ユーザID
+	 * @param loginId		ユーザーID
 	 * @return タスク一覧
 	 */
 	public void deleteTask(Integer taskId) {

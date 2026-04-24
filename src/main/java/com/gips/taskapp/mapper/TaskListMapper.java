@@ -19,7 +19,7 @@ public interface TaskListMapper {
 	/**
 	 * メンバーのタスク一覧取得
 	 *
-	 * @param loginId		ユーザID
+	 * @param loginId		ユーザーID
 	 * @return タスク一覧
 	 */
 	List<TaskListDto> getMemberTask(@Param("loginId") String loginId);
@@ -27,7 +27,7 @@ public interface TaskListMapper {
 	/**
 	 * リーダーのタスク一覧取得
 	 *
-	 * @param loginId		ユーザID
+	 * @param loginId		ユーザーID
 	 * @return タスク一覧
 	 */
 	List<TaskListDto> getLeaderTask(@Param("loginId") String loginId);

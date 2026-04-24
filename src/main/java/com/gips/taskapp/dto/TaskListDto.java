@@ -7,7 +7,7 @@ import com.gips.taskapp.common.Status;
 import lombok.Data;
 
 /**
- * タスク一覧Dto
+ * タスク一覧DTO
  *
  */
 @Data

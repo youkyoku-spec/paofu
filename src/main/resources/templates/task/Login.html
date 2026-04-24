@@ -18,10 +18,10 @@
 		<form th:action="@{/login}" th:object="${loginForm}" method="post">
 
 			<label for="loginId">ログインID</label>
-			<input type="text" id="loginId" th:field="*{loginId}">
+			<input type="text" id="loginId" th:field="*{loginId}" th:classappend="${message} ? 'input-error'">
 
 			<label for="password">パスワード</label>
-			<input type="password" id="password" th:field="*{password}">
+			<input type="password" id="password" th:field="*{password}" th:classappend="${message} ? 'input-error'">
 
 			<button type="submit">ログイン</button>
 

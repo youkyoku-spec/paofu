@@ -34,7 +34,7 @@ public class TaskListController {
 	 * ルートにGETでアクセスされた際に呼び出されるメソッド
 	 *
 	 * @param session	セッション
-	 * @return 呼出すビュー
+	 * @return 呼び出すビュー
 	 */
 	@GetMapping("/taskList")
 	public String init(@RequestParam(required = false) String status, Model model, HttpSession session) {
@@ -55,10 +55,10 @@ public class TaskListController {
 			taskList = taskListService.getLeaderTask(loginId, status);
 		}
 
-		// 取得したタスク一覧をモデルに設定する
+		// 取得したタスク一覧をモデルに追加する
 		model.addAttribute("taskList", taskList);
 
-		// 権限名をモデルに設定する
+		// 権限名をモデルに追加する
 		model.addAttribute("roleName", roleName);
 
 		// 選択状態保持用
@@ -71,30 +71,30 @@ public class TaskListController {
 
 	/**
 	 * タスク編集
-	 * 編集を押すとタスク編集画面へ遷移する
+	 * 編集を押すとタスク編集画面へリダイレクトする
 	 * @param session	セッション
 	 * @param taskId	タスクID
 	 * @param roleName	権限名
 	 * 
-	 * @return 呼出すビュー
+	 * @return 呼び出すビュー
 	 */
 	@GetMapping("/submitTask")
 	public String taskEdit(@RequestParam Integer taskId, @RequestParam String roleName, HttpSession session) {
-		// タスクID、権限名をセッションに格納
+		// タスクID、権限名をセッションに追加する
 		session.setAttribute("taskId", taskId);
 		session.setAttribute("roleName", roleName);
 
-		// タスク編集画面へ遷移する
+		// タスク編集画面へリダイレクトする
 		return "redirect:/taskEdit";
 
 	}
 
 	/**
 	 * タスク削除
-	 * 削除を押すと確認ダイアログ後データを削除する
+	 * 削除を押すと確認ダイアログで"はい"を入力後データを削除する
 	 * @param taskId	タスクID
 	 * 
-	 * @return 呼出すビュー
+	 * @return 呼び出すビュー
 	 */
 	@PostMapping("/removeTask")
 	public String taskDelete(@RequestParam Integer taskId) {
@@ -107,10 +107,10 @@ public class TaskListController {
 
 	/**
 	 * ログアウト
-	 * ログアウトを押すと確認ダイアログ後ログイン画面へ遷移する
+	 * ログアウトを押すと確認ダイアログで"はい"を入力後ログイン画面へリダイレクトする
 	 * @param session	セッション
 	 * 
-	 * @return 呼出すビュー
+	 * @return 呼び出すビュー
 	 */
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
