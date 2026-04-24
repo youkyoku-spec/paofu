@@ -9,52 +9,52 @@
 	<select id="findTaskById"
 		resultType="com.gips.taskapp.dto.TaskEditDto">
 		SELECT
-		t.task_id AS taskId,
-		t.assignee_id AS assigneeId,
-		t.task_name AS taskName,
-		t.task_detail AS taskDetail,
-		t.start_date AS
-		startDate,
-		t.due_date AS dueDate,
-		t.completed_date AS completedDate,
-		t.progress AS progress,
-		t.memo AS memo
-		FROM tasks t
-		WHERE t.task_id =
-		#{taskId}
+			t.task_id AS taskId,
+			t.assignee_id AS assigneeId,
+			t.task_name AS taskName,
+			t.task_detail AS taskDetail,
+			t.start_date AS startDate,
+			t.due_date AS dueDate,
+			t.completed_date AS completedDate,
+			t.progress AS progress,
+			t.memo AS memo
+		FROM
+			tasks t
+		WHERE
+			t.task_id = #{taskId}
 	</select>
 
 	<!-- ユーザー一覧を取得 -->
 	<select id="findAllUsers"
 		resultType="com.gips.taskapp.dto.UserDto">
 		SELECT
-		u.login_id AS loginId,
-		u.user_name AS userName
-		FROM
-		users u
+			u.login_id AS loginId,
+			u.user_name AS userName
+		FROM 
+			users u
 	</select>
 
 	<!-- タスク情報を登録 -->
 	<insert id="insertTask"
 		parameterType="com.gips.taskapp.dto.TaskEditDto">
 		INSERT INTO tasks (
-		assignee_id,
-		task_name,
-		task_detail,
-		start_date,
-		due_date,
-		completed_date,
-		progress,
-		memo
+			assignee_id,
+			task_name,
+			task_detail,
+			start_date,
+			due_date,
+			completed_date,
+			progress,
+			memo
 		) VALUES (
-		#{assigneeId},
-		#{taskName},
-		#{taskDetail},
-		#{startDate},
-		#{dueDate},
-		#{completedDate},
-		#{progress},
-		#{memo}
+			#{assigneeId},
+			#{taskName},
+			#{taskDetail},
+			#{startDate},
+			#{dueDate},
+			#{completedDate},
+			#{progress},
+			#{memo}
 		)
 	</insert>
 
@@ -63,17 +63,16 @@
 		parameterType="com.gips.taskapp.dto.TaskEditDto">
 		UPDATE tasks
 		SET
-		assignee_id = #{assigneeId},
-		task_name =
-		#{taskName},
-		task_detail = #{taskDetail},
-		start_date = #{startDate},
-		due_date = #{dueDate},
-		completed_date = #{completedDate},
-		progress =
-		#{progress},
-		memo = #{memo}
-		WHERE task_id = #{taskId}
+			assignee_id = #{assigneeId},
+			task_name = #{taskName},
+			task_detail = #{taskDetail},
+			start_date = #{startDate},
+			due_date = #{dueDate},
+			completed_date = #{completedDate},
+			progress = #{progress},
+			memo = #{memo}
+		WHERE
+			task_id = #{taskId}
 	</update>
 
 	<!-- タスク情報を更新(メンバー時) -->
@@ -81,9 +80,10 @@
 		parameterType="com.gips.taskapp.dto.TaskEditDto">
 		UPDATE tasks
 		SET
-		progress = #{progress},
-		memo = #{memo}
-		WHERE task_id = #{taskId}
+			progress = #{progress},
+			memo = #{memo}
+		WHERE
+			task_id = #{taskId}
 	</update>
 
 </mapper>

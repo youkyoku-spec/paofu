@@ -1,6 +1,8 @@
 package com.gips.taskapp.service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import com.gips.taskapp.dto.TaskEditForm;
 import com.gips.taskapp.dto.UserDto;
@@ -33,5 +35,15 @@ public interface TaskEditService {
 	 * @param form タスク情報
 	 */
 	void saveTask(String roleId, Integer taskId, TaskEditForm form);
+
+	/**
+	 * 日付の整合性を検証する
+	 * 
+	 * @param startDate 開始日
+	 * @param dueDate 完了予定日
+	 * @param completedDate 完了日
+	 * @return 検証結果
+	 */
+	Map<String, String> checkDate(LocalDate startDate, LocalDate dueDate, LocalDate completedDate);
 
 }

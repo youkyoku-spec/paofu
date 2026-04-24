@@ -1,5 +1,7 @@
 package com.gips.taskapp.controller;
 
+import java.util.Map;
+
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -105,38 +107,20 @@ public class TaskEditController {
 			validator.validate(form, result, MemberGroup.class);
 		}
 
-		// バリデーションエラーのチェック
-		if (result.hasErrors()) {
+		// 日付の整合性を検証し、結果を取得する
+		Map<String, String> errors = service.checkDate(
+				form.getStartDate(), form.getDueDate(), form.getCompletedDate());
 
-			// ビューに渡す情報をモデルに追加する
-			setupModel(model, roleName, form);
+		// バリデーションエラーがある場合
+		if (result.hasErrors() || !errors.isEmpty()) {
 
-			// タスク編集画面のビューを返却する
-			return "task/taskEdit";
-		}
-
-		// 開始日<=完了予定日の整合性チェック
-		if (form.getStartDate() != null && form.getDueDate() != null
-				&& form.getStartDate().isAfter(form.getDueDate())) {
-
-			// 完了予定日にエラーメッセージを紐づける
-			result.rejectValue("dueDate", "",
-					"完了予定日は開始日以降の日付を入力してください");
-
-			// ビューに渡す情報をモデルに追加する
-			setupModel(model, roleName, form);
-
-			// タスク編集画面のビューを返却する
-			return "task/taskEdit";
-		}
-
-		// 開始日<=完了日の整合性チェック
-		if (form.getStartDate() != null && form.getCompletedDate() != null
-				&& form.getStartDate().isAfter(form.getCompletedDate())) {
-
-			// 完了日にエラーメッセージを紐づける
-			result.rejectValue("completedDate", "",
-					"完了日は開始日以降の日付を入力してください");
+			// 日付の整合性エラーがある場合
+			if (!errors.isEmpty()) {
+				for (Map.Entry<String, String> entry : errors.entrySet()) {
+					// バリデーションエラーのメッセージを追加する
+					result.rejectValue(entry.getKey(), "", entry.getValue());
+				}
+			}
 
 			// ビューに渡す情報をモデルに追加する
 			setupModel(model, roleName, form);
