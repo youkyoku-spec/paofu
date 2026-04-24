@@ -29,16 +29,22 @@ public class TaskListController {
 		this.taskListService = taskListService;
 	}
 
+	// 表示する件数
+	public static final int LIMIT = 10;
+
 	/**
 	 * タスク一覧画面初期表示
 	 * ルートにGETでアクセスされた際に呼び出されるメソッド
 	 * @param status	状態
+	 * @param page	    ページ
 	 * @param session	セッション
 	 * 
 	 * @return 呼び出すビュー
 	 */
 	@GetMapping("/taskList")
-	public String init(@RequestParam(required = false) String status, Model model, HttpSession session) {
+	public String init(@RequestParam(required = false) String status, @RequestParam(defaultValue = "0") int page,
+			Model model, HttpSession session) {
+
 		// セッションからログインユーザー情報（login_id、role_name）を取得する
 		String loginId = (String) session.getAttribute("loginId");
 		String roleName = (String) session.getAttribute("roleName");
@@ -46,14 +52,30 @@ public class TaskListController {
 		// タスク一覧を初期化
 		List<TaskListDto> taskList = null;
 
+		// ページ設定
+		int limit = LIMIT;
+		int offset = page * limit;
+		int totalCount = 0;
+
+		// タスク一覧取得サービスを呼び出して、タスクを取得する
+		taskList = taskListService.getTaskList(loginId,roleName, status, limit, offset);
+		
 		if (Constants.MEMBER.equals(roleName)) {
+
 			// メンバーの場合
-			// メンバーのタスク一覧取得サービスを呼び出して、ログインユーザーのタスクのみ取得する
-			taskList = taskListService.getMemberTask(loginId, status);
+			// メンバーのタスク一覧総数
+			totalCount = taskListService.countMemberTask(loginId);
 		} else if (Constants.LEADER.equals(roleName)) {
+
 			// リーダーの場合
-			// リーダーのタスク一覧取得サービスを呼び出して、全てのタスクを取得する
-			taskList = taskListService.getLeaderTask(loginId, status);
+			// リーダーのタスク一覧総数
+			totalCount = taskListService.countLeaderTask();
+		}
+
+		int totalPages = (int) Math.ceil((double) totalCount / LIMIT);
+		// 10件不足する場合、1件に設定
+		if (totalPages == 0) {
+			totalPages = 1;
 		}
 
 		// 取得したタスク一覧をモデルに追加する
@@ -64,6 +86,10 @@ public class TaskListController {
 
 		// 選択状態保持用
 		model.addAttribute("status", status);
+
+		// ページ設定
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
 
 		// タスク一覧画面のビューを返却する
 		return "task/taskList";
