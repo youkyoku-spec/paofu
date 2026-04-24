@@ -29,6 +29,7 @@ public class TaskListServiceImpl implements TaskListService {
 	 * メンバーのタスク一覧取得サービス
 	 *
 	 * @param loginId		ユーザーID
+	 * @param status		状態
 	 * @return タスク一覧
 	 */
 	public List<TaskListDto> getMemberTask(String loginId, String status) {
@@ -54,6 +55,7 @@ public class TaskListServiceImpl implements TaskListService {
 	 * リーダーのタスク一覧取得サービス
 	 *
 	 * @param loginId		ユーザーID
+	 * @param status		状態
 	 * @return タスク一覧
 	 */
 	public List<TaskListDto> getLeaderTask(String loginId, String status) {
