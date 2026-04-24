@@ -1,6 +1,9 @@
 package com.gips.taskapp.service.impl;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,6 +86,35 @@ public class TaskEditServiceImpl implements TaskEditService {
 
 		// メンバー時のタスク更新処理
 		mapper.updateTaskAsMember(dto);
+	}
+
+	@Override
+	public Map<String, String> checkDate(
+			LocalDate startDate, LocalDate dueDate, LocalDate completedDate) {
+
+		// 結果を格納するマップ
+		Map<String, String> result = new HashMap<>();
+
+		// 開始日 <= 完了予定日の整合性チェック
+		if (startDate != null && dueDate != null
+				&& startDate.isAfter(dueDate)) {
+
+			// 完了予定日にエラーメッセージを紐づける
+			result.put("dueDate",
+					"完了予定日は開始日以降の日付を入力してください");
+		}
+
+		// 開始日 <= 完了日の整合性チェック
+		if (startDate != null && completedDate != null
+				&& startDate.isAfter(completedDate)) {
+
+			// 完了日にエラーメッセージを紐づける
+			result.put("completedDate",
+					"完了日は開始日以降の日付を入力してください");
+		}
+
+		// 結果を返却する
+		return result;
 	}
 
 }
