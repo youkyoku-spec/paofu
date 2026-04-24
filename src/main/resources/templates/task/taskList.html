@@ -4,85 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <title>タスク一覧画面</title>
+    <link rel="stylesheet" href="/css/taskList.css">
+
 </head>
 
 <body>
-    <h2>タスク一覧</h2>
+    <div class="container">
+        <h2>タスク一覧</h2>
 
-    <div>
-        <button type="button" onclick="if(confirm('ログアウトしますか？')) location.href='/logout'">
-            ログアウト
-        </button>
+        <div class="top-bar">
+            <button type="button" onclick="if(confirm('ログアウトしますか？')) location.href='/logout'">
+                ログアウト
+            </button>
+        </div>
+
+        <form method="get" action="/taskList">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            状態
+                            <select name="status" onchange="this.form.submit()">
+                                <option value="">すべて</option>
+                                <option value="未着手" th:selected="${status == '未着手'}">未着手</option>
+                                <option value="着手中" th:selected="${status == '着手中'}">着手中</option>
+                                <option value="注意" th:selected="${status == '注意'}">注意</option>
+                                <option value="遅延" th:selected="${status == '遅延'}">遅延</option>
+                                <option value="完了" th:selected="${status == '完了'}">完了</option>
+                            </select>
+                        </th>
+                        <th>作業者</th>
+                        <th>タスク名</th>
+                        <th>タスク内容</th>
+                        <th>開始日</th>
+                        <th>完了予定日</th>
+                        <th>完了日</th>
+                        <th>進捗率</th>
+                        <th>メモ</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="t : ${taskList}">
+                        <td th:text="${t.status}" th:class="'status-' + ${t.status}"></td>
+                        <td th:text="${t.userName}" th:class="'status-' + ${t.status}"></td>
+                        <td th:text="${t.taskName}" th:class="'status-' + ${t.status}"></td>
+                        <td th:text="${t.taskDetail}" th:class="'status-' + ${t.status}"></td>
+                        <td th:text="${t.startDate}" th:class="'status-' + ${t.status}"></td>
+                        <td th:text="${t.dueDate}" th:class="'status-' + ${t.status}"></td>
+                        <td th:text="${t.completedDate}" th:class="'status-' + ${t.status}"></td>
+                        <td th:text="${t.progress + '%'}" th:class="'status-' + ${t.status}"></td>
+                        <td th:text="${t.memo}" th:class="'status-' + ${t.status}"></td>
+                        <td  class="action-cell">
+                            <a th:href="@{/submitTask(taskId=${t.taskId}, roleName=${roleName})}">
+                                <button type="button">編集</button>
+                            </a>
+
+                            <form th:action="@{/removeTask}" method="post" th:if="${roleName == 'leader'}"
+                                onsubmit="return confirm('本当に削除しますか？');">
+
+                                <input type="hidden" name="taskId" th:value="${t.taskId}" />
+                                <button type="submit">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(taskList)}">
+                        <td colspan="11" class="empty">
+                            タスクがまだありません。登録をお待ちしています
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div>
+            検索結果：<span th:text="${#lists.size(taskList)}"></span>件
+        </div>
+
+        <form action="/taskRegister" method="get" th:if="${roleName == 'leader'}" class="top-bar">
+            <button type="submit">タスク登録</button>
+        </form>
     </div>
-
-    <form method="get" action="/taskList">
-        <table th:if="${!#lists.isEmpty(taskList)}">
-            <thead>
-                <tr>
-                    <th>
-                        状態
-                        <select name="status" onchange="this.form.submit()">
-                            <option value="">すべて</option>
-                            <option value="未着手" th:selected="${status == '未着手'}">未着手</option>
-                            <option value="着手中" th:selected="${status == '着手中'}">着手中</option>
-                            <option value="注意" th:selected="${status == '注意'}">注意</option>
-                            <option value="遅延" th:selected="${status == '遅延'}">遅延</option>
-                            <option value="完了" th:selected="${status == '完了'}">完了</option>
-                        </select>
-                    </th>
-                    <th>作業者</th>
-                    <th>タスク名</th>
-                    <th>タスク内容</th>
-                    <th>開始日</th>
-                    <th>完了予定日</th>
-                    <th>完了日</th>
-                    <th>進捗率</th>
-                    <th>メモ</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="t : ${taskList}">
-                    <td th:text="${t.status}"></td>
-                    <td th:text="${t.userName}"></td>
-                    <td th:text="${t.taskName}"></td>
-                    <td th:text="${t.taskDetail}"></td>
-                    <td th:text="${t.startDate}"></td>
-                    <td th:text="${t.dueDate}"></td>
-                    <td th:text="${t.completedDate}"></td>
-                    <td th:text="${t.progress + '%'}"></td>
-                    <td th:text="${t.memo}"></td>
-                    <td>
-                        <a th:href="@{/submitTask(taskId=${t.taskId}, roleName=${roleName})}">
-                            <button type="button">編集</button>
-                        </a>
-                    </td>
-                    <td>
-                        <form th:action="@{/removeTask}" method="post" th:if="${roleName == 'leader'}"
-                            onsubmit="return confirm('本当に削除しますか？');">
-
-                            <input type="hidden" name="taskId" th:value="${t.taskId}" />
-                            <button type="submit">削除</button>
-                        </form>
-                    </td>
-                </tr>
-                <tr th:if="${#lists.isEmpty(taskList)}">
-                    <td colspan="10" style="text-align:center;">
-                        該当するタスクはありません
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-    <div>
-        検索結果：<span th:text="${#lists.size(taskList)}"></span>件
-    </div>
-    <div th:if="${#lists.isEmpty(taskList)}" style="text-align:center; padding:20px;">
-        タスクがまだありません。登録をお待ちしています。
-    </div>
-
-    <form action="/taskRegister" method="get" th:if="${roleName == 'leader'}">
-        <button type="submit">タスク登録</button>
-    </form>
 
 </body>
 
