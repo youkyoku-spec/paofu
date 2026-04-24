@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+/* 全体レイアウト */
+body {
+	font-family: "Segoe UI", sans-serif;
+	background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+/* エラーボックス */
+.error-container {
+	background: #ffffff;
+	padding: 40px 50px;
+	border-radius: 12px;
+	width: 420px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	animation: fadeIn 0.8s ease;
+	text-align: center;
+}
+
+/* タイトル */
+.error-container h1 {
+	margin-bottom: 25px;
+	color: #d9534f;
+	font-size: 24px;
+}
+
+/* メッセージ */
+.error-container p {
+	color: #555;
+	margin: 10px 0;
+	font-size: 15px;
+	word-break: break-all;
+}
+
+/* トップへ戻るリンク */
+.error-container a {
+	display: block;
+	margin-top: 25px;
+	padding: 12px;
+	background: #74ebd5;
+	border-radius: 6px;
+	color: #333;
+	text-decoration: none;
+	font-weight: bold;
+	transition: 0.2s;
+}
+
+.error-container a:hover {
+	background: #5bd1c0;
+}
+
+/* フェードイン */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
