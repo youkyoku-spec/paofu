@@ -60,7 +60,7 @@
                             <a th:href="@{/submitTask(taskId=${t.taskId}, roleName=${roleName})}">
                                 <button type="button">編集</button>
                             </a>
-                            <button type="button" th:data-task-id="${t.taskId}"
+                            <button type="button" th:if="${roleName == 'leader'}" th:data-task-id="${t.taskId}"
                                 onclick="deleteTask(this.dataset.taskId)">
                                 削除
                             </button>
