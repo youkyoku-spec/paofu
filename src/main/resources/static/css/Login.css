@@ -99,6 +99,8 @@ button:active {
 
 }
 
+
+
 /* スパークル（四方向に尖った光） */
 .sparkle-particle {
 	position: fixed;
@@ -190,4 +192,18 @@ button:active {
 		transform: translate(-50%, -50%) scale(5.5);
 		box-shadow: 0 0 25px var(--ripple-color);
 	}
+}
+
+/* 入力エラー（赤枠） */
+.input-error {
+	border-color: red !important;
+	box-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+}
+
+/* エラーメッセージ（タスク画面と統一） */
+.field-error {
+	color: red;
+	font-size: 13px;
+	margin-top: -12px;
+	margin-bottom: 10px;
 }
