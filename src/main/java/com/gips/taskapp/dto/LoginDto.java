@@ -7,9 +7,11 @@ import lombok.Data;
  */
 @Data
 public class LoginDto {
-	//入力された文字列を格納する
+
+	// ログインID
 	private String loginId;
+
+	// パスワード
 	private String password;
 
-	//getter,setter
 }

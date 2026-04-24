@@ -32,8 +32,9 @@ public class TaskListController {
 	/**
 	 * タスク一覧画面初期表示
 	 * ルートにGETでアクセスされた際に呼び出されるメソッド
-	 *
+	 * @param status	状態
 	 * @param session	セッション
+	 * 
 	 * @return 呼び出すビュー
 	 */
 	@GetMapping("/taskList")
@@ -72,9 +73,9 @@ public class TaskListController {
 	/**
 	 * タスク編集
 	 * 編集を押すとタスク編集画面へリダイレクトする
-	 * @param session	セッション
 	 * @param taskId	タスクID
 	 * @param roleName	権限名
+	 * @param session	セッション
 	 * 
 	 * @return 呼び出すビュー
 	 */
