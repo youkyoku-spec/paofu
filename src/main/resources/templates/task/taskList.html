@@ -19,12 +19,13 @@
         </div>
 
         <form method="get" action="/taskList">
+            <input type="hidden" name="page" value="0">
             <table>
                 <thead>
                     <tr>
                         <th>
                             状態
-                            <select name="status" onchange="this.form.submit()">
+                            <select name="status" onchange="changeStatus(this)">
                                 <option value="">すべて</option>
                                 <option value="未着手" th:selected="${status == '未着手'}">未着手</option>
                                 <option value="着手中" th:selected="${status == '着手中'}">着手中</option>
@@ -55,17 +56,14 @@
                         <td th:text="${t.completedDate}" th:class="'status-' + ${t.status}"></td>
                         <td th:text="${t.progress + '%'}" th:class="'status-' + ${t.status}"></td>
                         <td th:text="${t.memo}" th:class="'status-' + ${t.status}"></td>
-                        <td  class="action-cell">
+                        <td class="action-cell">
                             <a th:href="@{/submitTask(taskId=${t.taskId}, roleName=${roleName})}">
                                 <button type="button">編集</button>
                             </a>
-
-                            <form th:action="@{/removeTask}" method="post" th:if="${roleName == 'leader'}"
-                                onsubmit="return confirm('本当に削除しますか？');">
-
-                                <input type="hidden" name="taskId" th:value="${t.taskId}" />
-                                <button type="submit">削除</button>
-                            </form>
+                            <button type="button" th:data-task-id="${t.taskId}"
+                                onclick="deleteTask(this.dataset.taskId)">
+                                削除
+                            </button>
                         </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(taskList)}">
@@ -75,16 +73,36 @@
                     </tr>
                 </tbody>
             </table>
+
+            <div class="pagination">
+
+                <!-- 前へ -->
+                <a th:if="${currentPage > 0}" th:href="@{/taskList(page=${currentPage - 1}, status=${status})}">
+                    ← 前へ
+                </a>
+
+                <!-- ページ番号 -->
+                <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                    <a th:href="@{/taskList(page=${i}, status=${status})}" th:text="${i + 1}"
+                        th:classappend="${i == currentPage} ? 'active' : ''">
+                    </a>
+                </span>
+
+                <!-- 次へ -->
+                <a th:if="${currentPage < totalPages - 1}"
+                    th:href="@{/taskList(page=${currentPage + 1}, status=${status})}">
+                    次へ →
+                </a>
+
+            </div>
         </form>
-        <div>
-            検索結果：<span th:text="${#lists.size(taskList)}"></span>件
-        </div>
 
         <form action="/taskRegister" method="get" th:if="${roleName == 'leader'}" class="top-bar">
             <button type="submit">タスク登録</button>
         </form>
     </div>
 
+    <script th:src="@{/js/taskList.js}"></script>
 </body>
 
 </html>
