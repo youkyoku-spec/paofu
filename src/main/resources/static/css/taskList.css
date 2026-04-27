@@ -54,6 +54,7 @@ button:active {
 /* ===== テーブル ===== */
 table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     margin-top: 10px;
     font-size: 14px;
@@ -74,9 +75,27 @@ th, td {
     text-align: center;
 }
 
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* デフォは1行 */
+}
+
 /* 行ホバー */
 tbody tr:hover {
     background: #f5fdfc;
+}
+
+/* メモ */
+.memo, .taskDetail {
+    white-space: normal !important;
+    text-align: left;
+    white-space: normal;
+    word-break: break-word;
+    max-width: 250px;
 }
 
 /* ===== セレクトボックス ===== */
@@ -99,6 +118,8 @@ select {
     padding: 20px;
     color: #e74c3c; /* おしゃれな赤 */
     font-weight: bold;
+    white-space: normal;
+    overflow: visible;
 }
 
 /* ===== ステータス色分け（ここ重要） ===== */
@@ -144,6 +165,7 @@ select {
     gap: 8px;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
 }
 
 /* formの余計な余白消す */

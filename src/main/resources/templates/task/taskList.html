@@ -24,7 +24,7 @@
                 <thead>
                     <tr>
                         <th>
-                            状態
+                            <div>状態</div>
                             <select name="status" onchange="changeStatus(this)">
                                 <option value="">すべて</option>
                                 <option value="未着手" th:selected="${status == '未着手'}">未着手</option>
@@ -50,24 +50,27 @@
                         <td th:text="${t.status}" th:class="'status-' + ${t.status}"></td>
                         <td th:text="${t.userName}" th:class="'status-' + ${t.status}"></td>
                         <td th:text="${t.taskName}" th:class="'status-' + ${t.status}"></td>
-                        <td th:text="${t.taskDetail}" th:class="'status-' + ${t.status}"></td>
+                        <td th:text="${t.taskDetail}" class="taskDetail" th:classappend="' status-' + ${t.status}"></td>
                         <td th:text="${t.startDate}" th:class="'status-' + ${t.status}"></td>
                         <td th:text="${t.dueDate}" th:class="'status-' + ${t.status}"></td>
                         <td th:text="${t.completedDate}" th:class="'status-' + ${t.status}"></td>
                         <td th:text="${t.progress + '%'}" th:class="'status-' + ${t.status}"></td>
-                        <td th:text="${t.memo}" th:class="'status-' + ${t.status}"></td>
-                        <td class="action-cell">
-                            <a th:href="@{/submitTask(taskId=${t.taskId}, roleName=${roleName})}">
-                                <button type="button">編集</button>
-                            </a>
-                            <button type="button" th:if="${roleName == 'leader'}" th:data-task-id="${t.taskId}"
-                                onclick="openDeleteModal(this.dataset.taskId)">
-                                削除
-                            </button>
+                        <td th:text="${t.memo}" class="memo" th:classappend="' status-' + ${t.status}">
+                        </td>
+                        <td>
+                            <div class="action-cell">
+                                <a th:href="@{/submitTask(taskId=${t.taskId}, roleName=${roleName})}">
+                                    <button type="button">編集</button>
+                                </a>
+                                <button type="button" th:if="${roleName == 'leader'}" th:data-task-id="${t.taskId}"
+                                    onclick="openDeleteModal(this.dataset.taskId)">
+                                    削除
+                                </button>
+                            </div>
                         </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(taskList)}">
-                        <td colspan="11" class="empty">
+                        <td colspan="10" class="empty">
                             タスクがまだありません。登録をお待ちしています
                         </td>
                     </tr>
