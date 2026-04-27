@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>タスク一覧画面</title>
     <link rel="stylesheet" href="/css/taskList.css">
+    <link rel="stylesheet" href="/css/common.css">
 
 </head>
 
@@ -115,7 +116,13 @@
             </div>
         </div>
     </div>
+
+    <form id="deleteForm" method="post" action="/removeTask">
+        <input type="hidden" name="taskId" id="deleteTaskId">
+    </form>
+
     <script th:src="@{/js/taskList.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
 </body>
 
 </html>
