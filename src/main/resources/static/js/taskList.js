@@ -1,30 +1,27 @@
-// プルダウンを選択
-function changeStatus(select) {
+let actionUrl = "";
 
-    const form = select.form;
-    const pageInput = form.querySelector("input[name='page']");
-
-    if (pageInput) {
-        pageInput.value = 0;
-    }
-
-    form.submit();
+function openDeleteModal(taskId) {
+    actionUrl = "/deleteTask?taskId=" + taskId;
+    document.getElementById("modalMessage").innerText = "本当に削除しますか？";
+    document.getElementById("modalOk").onclick = goAction;
+    document.getElementById("confirmModal").style.display = "flex";
 }
 
-// タスク削除
-function deleteTask(taskId) {
-    if (!confirm('本当に削除しますか？')) return;
+function openLogoutModal() {
+    actionUrl = "/logout";
+    document.getElementById("modalMessage").innerText = "ログアウトしますか？";
+    document.getElementById("modalOk").onclick = goAction;
+    document.getElementById("confirmModal").style.display = "flex";
+}
 
-    const form = document.createElement('form');
-    form.method = 'post';
-    form.action = '/removeTask';
+function goAction() {
+    location.href = actionUrl;
+}
 
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'taskId';
-    input.value = taskId;
+function closeModal() {
+    document.getElementById("confirmModal").style.display = "none";
+}
 
-    form.appendChild(input);
-    document.body.appendChild(form);
-    form.submit();
+function changeStatus(select) {
+    select.form.submit();
 }

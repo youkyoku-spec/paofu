@@ -50,10 +50,19 @@ public class TaskListController {
 		List<TaskListDto> taskList = null;
 
 		// タスク一覧取得サービスを呼び出して、タスクを取得する
-		taskList = taskListService.getTaskList(loginId, roleName, status, page);
+		taskList = taskListService.getTaskList(loginId, roleName, status);
 
 		// タスク一覧総数を取得
-		int totalCount = taskListService.countAfterFilter(loginId, roleName, status);
+		int totalCount = taskList.size();
+
+		// 1ページの件数を決める
+		int limit = Constants.PAGE;
+		// 取得開始位置を計算
+		int fromIndex = page * limit;
+		// 取得終了位置を計算
+		int toIndex = Math.min(fromIndex + limit, taskList.size());
+		// 範囲外チェックして、指定範囲だけ返す
+		taskList = (fromIndex > taskList.size()) ? List.of() : taskList.subList(fromIndex, toIndex);
 
 		int totalPages = (int) Math.ceil((double) totalCount / Constants.PAGE);
 		// 10件不足する場合、1件に設定
@@ -124,7 +133,10 @@ public class TaskListController {
 	 */
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+
+		// セッションデータを全部消す
 		session.invalidate();
+		// ログイン画面へリダイレクトする
 		return "redirect:/login";
 	}
 

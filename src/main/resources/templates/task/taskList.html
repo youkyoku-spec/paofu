@@ -13,7 +13,7 @@
         <h2>タスク一覧</h2>
 
         <div class="top-bar">
-            <button type="button" onclick="if(confirm('ログアウトしますか？')) location.href='/logout'">
+            <button type="button" onclick="openLogoutModal()">
                 ログアウト
             </button>
         </div>
@@ -61,7 +61,7 @@
                                 <button type="button">編集</button>
                             </a>
                             <button type="button" th:if="${roleName == 'leader'}" th:data-task-id="${t.taskId}"
-                                onclick="deleteTask(this.dataset.taskId)">
+                                onclick="openDeleteModal(this.dataset.taskId)">
                                 削除
                             </button>
                         </td>
@@ -102,6 +102,16 @@
         </form>
     </div>
 
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <p class="modal-text" id="modalMessage"></p>
+
+            <div class="modal-buttons">
+                <button class="btn ok" id="modalOk">OK</button>
+                <button class="btn cancel" onclick="closeModal()">キャンセル</button>
+            </div>
+        </div>
+    </div>
     <script th:src="@{/js/taskList.js}"></script>
 </body>
 

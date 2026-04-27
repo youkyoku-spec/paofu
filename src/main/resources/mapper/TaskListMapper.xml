@@ -22,7 +22,7 @@
         WHERE t.assignee_id = #{loginId}
         ORDER BY t.due_date ASC, t.progress DESC
     </select>
-    
+
     <select id="getLeaderTask" resultType="TaskListDto">
         SELECT
           u.user_name AS userName,
@@ -39,7 +39,7 @@
         INNER JOIN tasks t ON u.login_id = t.assignee_id
         ORDER BY t.due_date ASC, t.progress DESC
     </select>
-    
+
     <delete id="deleteTask">
         DELETE FROM tasks 
         WHERE task_id = #{taskId}

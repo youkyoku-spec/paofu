@@ -13,11 +13,9 @@ import com.gips.taskapp.dto.TaskListDto;
 public interface TaskListService {
 
 	// タスク一覧取得サービス
-	List<TaskListDto> getTaskList(String loginId, String roleName, String status, int page);
+	List<TaskListDto> getTaskList(String loginId, String roleName, String status);
 
 	// タスク一覧削除サービス
 	void deleteTask(Integer taskId);
 
-	// タスク一覧総数取得
-	int countAfterFilter(String loginId, String roleName, String status);
 }
