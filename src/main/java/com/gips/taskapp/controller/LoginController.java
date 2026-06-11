@@ -23,7 +23,17 @@ public class LoginController {
 	public LoginController(LoginService service) {
 		this.service = service;
 	}
-
+	
+	/**
+	 * ログイン画面の初期表示
+	 * @param /login
+	 * @return
+	 */
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/login";
+    }
+    
 	/**
 	 * ログイン画面の初期表示
 	 * @param model
