@@ -50,9 +50,9 @@
 			#{assigneeId},
 			#{taskName},
 			#{taskDetail},
-			#{startDate},
-			#{dueDate},
-			#{completedDate},
+			#{startDate,jdbcType=DATE},
+			#{dueDate,jdbcType=DATE},
+			#{completedDate,jdbcType=DATE},
 			#{progress},
 			#{memo}
 		)
